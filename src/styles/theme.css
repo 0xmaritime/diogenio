@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  /* Breakpoints */
+  --breakpoint-3xl: 1920px;
+  
+  /* Colors */
+  --color-barrel: oklch(0.95 0.02 83);      /* Warm wood tone */
+  --color-lantern: oklch(0.85 0.15 64);     /* Golden light */
+  --color-cynical: oklch(0.40 0.03 280);    /* Philosophical blue */
+  --color-wisdom: oklch(0.30 0.01 0);       /* Deep wisdom black */
+  --color-market: oklch(0.98 0.01 60);      /* Market square beige */
+  
+  /* Core spacing unit */
+  --spacing: 0.25rem;
+  
+  /* Animations */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-glow: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
