@@ -32,13 +32,13 @@ export default function LorePage() {
   return (
     <Layout>
       <div className="max-w-4xl mx-auto px-4 py-16">
-        <h1 className="text-5xl font-bold text-white mb-12 text-center">
+        <h1 className="text-5xl font-bold text-gradient-primary mb-12 text-center">
           The Cynical Timeline
         </h1>
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-zinc-800" />
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-pink-hair/30" />
 
           {/* Events */}
           {timelineEvents.map((event, index) => (
@@ -50,18 +50,18 @@ export default function LorePage() {
             >
               {/* Content */}
               <div className="w-1/2 px-8">
-                <div className="bg-zinc-900 p-6 rounded-xl shadow-lg">
-                  <span className="text-zinc-400 text-sm">{event.year}</span>
+                <div className="bg-card-dark p-6 rounded-xl shadow-lg border border-pink-hair/30">
+                  <span className="text-text-secondary text-sm">{event.year}</span>
                   <h3 className="text-white text-xl font-bold mt-1 mb-2">
                     {event.title}
                   </h3>
-                  <p className="text-zinc-400">{event.description}</p>
+                  <p className="text-text-secondary">{event.description}</p>
                 </div>
               </div>
 
               {/* Timeline dot */}
               <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4">
-                <div className="w-4 h-4 bg-white rounded-full" />
+                <div className="w-4 h-4 bg-pink-hair rounded-full" />
               </div>
             </div>
           ))}

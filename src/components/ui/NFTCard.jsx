@@ -13,7 +13,7 @@ export default function NFTCard({ nft }) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className={`
-        relative overflow-hidden rounded-xl bg-zinc-900 border border-zinc-800
+        relative overflow-hidden rounded-xl bg-card-dark border border-pink-hair/30
         transform transition-all duration-300
         ${isHovered ? 'scale-[1.02] shadow-xl' : ''}
       `}>
@@ -29,7 +29,7 @@ export default function NFTCard({ nft }) {
 
         {/* Info Overlay */}
         <div className={`
-          absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent
+          absolute inset-0 bg-gradient-to-t from-city-bg/90 via-city-bg/50 to-transparent
           flex flex-col justify-end p-4 transition-opacity duration-300
           ${isHovered ? 'opacity-100' : 'opacity-90'}
         `}>
@@ -41,7 +41,7 @@ export default function NFTCard({ nft }) {
 
         {/* Hover Details */}
         <div className={`
-          absolute inset-0 bg-black/80 backdrop-blur-sm p-4
+          absolute inset-0 bg-gradient-to-r from-city-bg/90 to-tech-bg/90 backdrop-blur-sm p-4
           flex flex-col justify-center items-center text-center
           transition-all duration-300
           ${isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'}

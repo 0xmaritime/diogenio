@@ -35,10 +35,10 @@ export default function ElementsPage() {
     <Layout>
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-white mb-4">
+          <h1 className="text-5xl font-bold text-gradient-primary mb-4">
             Architectural Elements
           </h1>
-          <p className="text-xl text-zinc-400">
+          <p className="text-xl text-text-secondary">
             Core components of the DioGenio philosophy and infrastructure
           </p>
         </div>
@@ -52,8 +52,8 @@ export default function ElementsPage() {
               className={`
                 px-6 py-2 rounded-lg font-medium transition-colors
                 ${activeCategory === category
-                  ? 'bg-white text-black'
-                  : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200'
+                  ? 'bg-pink-hair text-white'
+                  : 'bg-card-dark text-text-secondary hover:bg-pink-hair/20 hover:text-white'
                 }
               `}
             >
@@ -67,20 +67,20 @@ export default function ElementsPage() {
           {filteredElements.map(element => (
             <div 
               key={element.name}
-              className="bg-zinc-900 rounded-xl p-6 border border-zinc-800
-                hover:border-zinc-700 transition-colors"
+              className="bg-card-dark rounded-xl p-6 border border-pink-hair/30
+                hover:border-pink-hair/50 transition-colors"
             >
               <h3 className="text-2xl font-bold text-white mb-3">
                 {element.name}
               </h3>
-              <p className="text-zinc-400 mb-4">
+              <p className="text-text-secondary mb-4">
                 {element.description}
               </p>
               <div className="flex flex-wrap gap-2">
                 {element.attributes.map(attr => (
                   <span 
                     key={attr}
-                    className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-sm"
+                    className="px-3 py-1 bg-tech-bg text-text-secondary rounded-full text-sm"
                   >
                     {attr}
                   </span>

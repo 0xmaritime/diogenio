@@ -1,10 +1,17 @@
+import React from 'react';
 import Layout from '../components/layout/Layout';
-import HeroSection from '../components/sections/HeroSection';
+import HeroTerminal from '../components/sections/HeroTerminal';
+import ElementShowcase from '../components/sections/ElementShowcase';
+import NftGallery from '../components/sections/NftGallery';
+import Manifesto from '../components/sections/Manifesto';
 
 export default function HomePage() {
   return (
     <Layout>
-      <HeroSection />
+      <HeroTerminal />
+      <ElementShowcase />
+      <NftGallery />
+      <Manifesto />
     </Layout>
   );
 }

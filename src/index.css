@@ -1,5 +1,6 @@
 @layer base, components, utilities;
 
+@import "./styles/color-scheme.css";
 @import "tailwindcss";
 
 @property --glow-opacity {

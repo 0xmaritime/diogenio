@@ -20,8 +20,8 @@ export default function GalleryPage() {
     <Layout>
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-white mb-4">Digital Cynics Gallery</h1>
-          <p className="text-xl text-zinc-400">Browse the collection of philosophical misfits</p>
+          <h1 className="text-5xl font-bold text-gradient-primary mb-4">Digital Cynics Gallery</h1>
+          <p className="text-xl text-text-secondary">Browse the collection of philosophical misfits</p>
         </div>
 
         {/* Filters */}
@@ -29,7 +29,7 @@ export default function GalleryPage() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="bg-zinc-800 text-white px-4 py-2 rounded-lg"
+            className="bg-card-dark text-white px-4 py-2 rounded-lg border border-pink-hair/20"
           >
             <option value="id">Latest</option>
             <option value="rarity">Rarity</option>
@@ -38,7 +38,7 @@ export default function GalleryPage() {
           <select
             value={filterRarity}
             onChange={(e) => setFilterRarity(e.target.value)}
-            className="bg-zinc-800 text-white px-4 py-2 rounded-lg"
+            className="bg-card-dark text-white px-4 py-2 rounded-lg border border-pink-hair/20"
           >
             <option value="all">All Rarities</option>
             <option value="common">Common</option>

@@ -7,11 +7,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        barrel: 'oklch(0.95 0.02 83)',
-        lantern: 'oklch(0.85 0.15 64)',
-        cynical: 'oklch(0.40 0.03 280)',
-        wisdom: 'oklch(0.30 0.01 0)',
-        market: 'oklch(0.98 0.01 60)',
+        // Primary Colors
+        'pink-hair': 'var(--color-pink-hair)',
+        'blue-eyes': 'var(--color-blue-eyes)',
+        'green-jacket': 'var(--color-green-jacket)',
+        'medal-gold': 'var(--color-medal-gold)',
+        'blue-shirt': 'var(--color-blue-shirt)',
+        'dark-eyes': 'var(--color-dark-eyes)',
+
+        // Background Colors
+        'city-bg': 'var(--color-city-bg)',
+        'tech-bg': 'var(--color-tech-bg)',
+        'card-dark': 'var(--color-card-dark)',
+
+        // Text Colors
+        'text-primary': 'var(--color-text-primary)',
+        'text-secondary': 'var(--color-text-secondary)',
+        'text-accent': 'var(--color-text-accent)',
+
+        // Accent Colors
+        'accent-1': 'var(--color-accent-1)',
+        'accent-2': 'var(--color-accent-2)',
+        'accent-3': 'var(--color-accent-3)',
       },
       animation: {
         float: 'float 6s ease-in-out infinite',

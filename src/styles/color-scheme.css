@@ -1,0 +1,24 @@
+:root {
+  /* Primary Colors */
+  --color-pink-hair: #ff6b9d;
+  --color-blue-eyes: #4da6ff;
+  --color-green-jacket: #00c896;
+  --color-medal-gold: #ffd700;
+  --color-blue-shirt: #3a86ff;
+  --color-dark-eyes: #1a1a2e;
+
+  /* Background Colors */
+  --color-city-bg: #e0e0f0;
+  --color-tech-bg: #f0f0f0;
+  --color-card-dark: #e0e0f5;
+
+  /* Text Colors */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b3b3b3;
+  --color-text-accent: #4da6ff;
+
+  /* Accent Colors */
+  --color-accent-1: #ff6b9d;
+  --color-accent-2: #4da6ff;
+  --color-accent-3: #00c896;
+}

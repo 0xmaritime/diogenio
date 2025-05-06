@@ -1,24 +1,6 @@
 @import "tailwindcss";
 
-@theme {
-  /* Breakpoints */
-  --breakpoint-3xl: 1920px;
-  
-  /* Colors */
-  --color-barrel: oklch(0.95 0.02 83);      /* Warm wood tone */
-  --color-lantern: oklch(0.85 0.15 64);     /* Golden light */
-  --color-cynical: oklch(0.40 0.03 280);    /* Philosophical blue */
-  --color-wisdom: oklch(0.30 0.01 0);       /* Deep wisdom black */
-  --color-market: oklch(0.98 0.01 60);      /* Market square beige */
-  
-  /* Core spacing unit */
-  --spacing: 0.25rem;
-  
-  /* Animations */
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-glow: glow 2s ease-in-out infinite alternate;
-}
-
+/* Keep the existing animations but use the variables from color-scheme.css */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
@@ -27,4 +9,273 @@
 @keyframes glow {
   0% { opacity: 0.7; }
   100% { opacity: 1; }
+}
+
+/* Additional theme utilities can be added here */
+.text-gradient-primary {
+  background: linear-gradient(to right, var(--color-pink-hair), var(--color-blue-eyes));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.border-glow {
+  box-shadow: 0 0 8px var(--color-accent-1);
+}
+
+/* New DioGenio animations and effects */
+/* Matrix code digital rain effect */
+.matrix-code {
+  background: linear-gradient(180deg, transparent, rgba(200, 200, 200, 0.3));
+  background-size: 100% 100%;
+  background-repeat: repeat-y;
+  background-position: 0 0;
+  animation: matrix-rain 20s linear infinite;
+}
+
+@keyframes matrix-rain {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(50%); }
+}
+
+/* Terminal typing effect */
+.typewriter-text {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid var(--color-medal-gold);
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--color-medal-gold) }
+}
+
+/* Typing delays */
+.typing-delay-1 { animation-delay: 1s; }
+.typing-delay-2 { animation-delay: 2s; }
+.typing-delay-3 { animation-delay: 3s; }
+.typing-delay-4 { animation-delay: 4s; }
+.typing-delay-5 { animation-delay: 5s; }
+
+/* Floating animations */
+.barrel-float-1 { animation: float-1 8s ease-in-out infinite; }
+.barrel-float-2 { animation: float-2 12s ease-in-out infinite; }
+.barrel-float-3 { animation: float-3 10s ease-in-out infinite; }
+.lantern-float-1 { animation: float-2 9s ease-in-out infinite; }
+.lantern-float-2 { animation: float-1 11s ease-in-out infinite; }
+
+@keyframes float-1 {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+@keyframes float-2 {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-15px) rotate(-5deg); }
+}
+
+@keyframes float-3 {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-25px) rotate(8deg); }
+}
+
+/* Glitch text effects */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--color-pink-hair);
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 var(--color-blue-eyes), 2px 2px var(--color-pink-hair);
+  animation: glitch-anim2 1s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(10px, 9999px, 30px, 0); transform: skew(0.5deg); }
+  5% { clip: rect(70px, 9999px, 78px, 0); transform: skew(0.1deg); }
+  10% { clip: rect(30px, 9999px, 80px, 0); transform: skew(0.2deg); }
+  15% { clip: rect(15px, 9999px, 10px, 0); transform: skew(0.3deg); }
+  20% { clip: rect(50px, 9999px, 62px, 0); transform: skew(0.4deg); }
+  25% { clip: rect(5px, 9999px, 41px, 0); transform: skew(0.5deg); }
+  30% { clip: rect(20px, 9999px, 73px, 0); transform: skew(0.6deg); }
+  35% { clip: rect(25px, 9999px, 5px, 0); transform: skew(0.7deg); }
+  40% { clip: rect(45px, 9999px, 12px, 0); transform: skew(0.8deg); }
+  45% { clip: rect(55px, 9999px, 34px, 0); transform: skew(0.9deg); }
+  50% { clip: rect(35px, 9999px, 23px, 0); transform: skew(1.0deg); }
+  55% { clip: rect(65px, 9999px, 42px, 0); transform: skew(0.9deg); }
+  60% { clip: rect(15px, 9999px, 60px, 0); transform: skew(0.8deg); }
+  65% { clip: rect(25px, 9999px, 45px, 0); transform: skew(0.7deg); }
+  70% { clip: rect(75px, 9999px, 34px, 0); transform: skew(0.6deg); }
+  75% { clip: rect(95px, 9999px, 43px, 0); transform: skew(0.5deg); }
+  80% { clip: rect(85px, 9999px, 56px, 0); transform: skew(0.4deg); }
+  85% { clip: rect(45px, 9999px, 25px, 0); transform: skew(0.3deg); }
+  90% { clip: rect(35px, 9999px, 28px, 0); transform: skew(0.2deg); }
+  95% { clip: rect(25px, 9999px, 35px, 0); transform: skew(0.1deg); }
+  100% { clip: rect(15px, 9999px, 15px, 0); transform: skew(0deg); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(65px, 9999px, 119px, 0); transform: skew(0.1deg); }
+  5% { clip: rect(79px, 9999px, 19px, 0); transform: skew(0.2deg); }
+  10% { clip: rect(85px, 9999px, 70px, 0); transform: skew(0.1deg); }
+  15% { clip: rect(25px, 9999px, 55px, 0); transform: skew(0.3deg); }
+  20% { clip: rect(45px, 9999px, 35px, 0); transform: skew(0.5deg); }
+  25% { clip: rect(15px, 9999px, 80px, 0); transform: skew(0.4deg); }
+  30% { clip: rect(35px, 9999px, 40px, 0); transform: skew(0.3deg); }
+  35% { clip: rect(55px, 9999px, 92px, 0); transform: skew(0.2deg); }
+  40% { clip: rect(65px, 9999px, 102px, 0); transform: skew(0.1deg); }
+  45% { clip: rect(75px, 9999px, 112px, 0); transform: skew(0.2deg); }
+  50% { clip: rect(15px, 9999px, 72px, 0); transform: skew(0.3deg); }
+  55% { clip: rect(90px, 9999px, 32px, 0); transform: skew(0.2deg); }
+  60% { clip: rect(45px, 9999px, 62px, 0); transform: skew(0.1deg); }
+  65% { clip: rect(25px, 9999px, 52px, 0); transform: skew(0.2deg); }
+  70% { clip: rect(35px, 9999px, 12px, 0); transform: skew(0.3deg); }
+  75% { clip: rect(45px, 9999px, 21px, 0); transform: skew(0.2deg); }
+  80% { clip: rect(15px, 9999px, 72px, 0); transform: skew(0.1deg); }
+  85% { clip: rect(75px, 9999px, 82px, 0); transform: skew(0.2deg); }
+  90% { clip: rect(85px, 9999px, 42px, 0); transform: skew(0.3deg); }
+  95% { clip: rect(95px, 9999px, 52px, 0); transform: skew(0.2deg); }
+  100% { clip: rect(5px, 9999px, 32px, 0); transform: skew(0.1deg); }
+}
+
+/* Subtle glitch text effect */
+.glitch-text-subtle {
+  position: relative;
+  display: inline-block;
+  color: white;
+}
+
+.glitch-text-subtle::before,
+.glitch-text-subtle::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text-subtle::before {
+  color: var(--color-pink-hair);
+  left: -2px;
+  animation: glitch-subtle-1 2s infinite;
+}
+
+.glitch-text-subtle::after {
+  color: var(--color-blue-eyes);
+  left: 2px;
+  animation: glitch-subtle-2 3s infinite;
+}
+
+@keyframes glitch-subtle-1 {
+  0%, 89%, 94%, 100% { transform: translate(0, 0) skew(0deg); }
+  90% { transform: translate(-2px, 2px) skew(0.5deg); }
+  93% { transform: translate(0, -2px) skew(-0.5deg); }
+}
+
+@keyframes glitch-subtle-2 {
+  0%, 89%, 94%, 100% { transform: translate(0, 0) skew(0deg); }
+  90% { transform: translate(2px, -2px) skew(-0.5deg); }
+  93% { transform: translate(0, 2px) skew(0.5deg); }
+}
+
+/* 3D gallery perspective */
+.perspective-container {
+  perspective: 2000px;
+}
+
+.gallery-card {
+  transition: all 0.5s ease-in-out;
+}
+
+.gallery-card:hover {
+  z-index: 20;
+  transform: scale(1.05) translateZ(50px);
+}
+
+.transform-3d {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.rotate-y-15 { transform: rotateY(15deg); }
+.rotate-y-10 { transform: rotateY(10deg); }
+.rotate-y-neg10 { transform: rotateY(-10deg); }
+.rotate-y-20 { transform: rotateY(20deg); }
+.rotate-y-neg25 { transform: rotateY(-25deg); }
+.rotate-x-5 { transform: rotateX(5deg); }
+.rotate-x-neg5 { transform: rotateX(-5deg); }
+.rotate-x-neg10 { transform: rotateX(-10deg); }
+
+/* Connection lines animation */
+.line-connect {
+  stroke-width: 0.2;
+  stroke-dasharray: 10;
+  stroke-dashoffset: 20;
+  animation: line-dash 20s linear infinite;
+}
+
+@keyframes line-dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Glitch hover effect */
+.glitch-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.glitch-hover:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -10px;
+  width: 5px;
+  height: 100%;
+  background-color: var(--color-pink-hair);
+  animation: glitch-line 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes glitch-line {
+  0% { transform: skewY(10deg) translateX(0); }
+  100% { transform: skewY(-10deg) translateX(100vw); }
+}
+
+/* Grid pattern */
+.grid-pattern {
+  background-image:
+    linear-gradient(to right, var(--color-pink-hair) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-blue-eyes) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Barrel pattern */
+.barrel-pattern {
+  background-image: radial-gradient(circle at center, var(--color-medal-gold) 1px, transparent 1px);
+  background-size: 30px 30px;
 }

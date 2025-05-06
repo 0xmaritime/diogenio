@@ -6,8 +6,8 @@ export default function HeroSection() {
     <section className="min-h-[100svh] pt-16 pb-20 relative @container">
       {/* Background with modern gradient */}
       <div className="absolute inset-0 bg-gradient-to-b 
-        from-color-mix(in oklch, var(--cynical) 90%, black) 
-        to-color-mix(in oklch, var(--wisdom) 80%, black)" />
+        from-color-mix(in oklch, var(--color-city-bg) 90%, black) 
+        to-color-mix(in oklch, var(--color-dark-eyes) 80%, black)" />
       
       {/* Radial pattern overlay */}
       <div className="absolute inset-0 opacity-5 
@@ -18,7 +18,7 @@ export default function HeroSection() {
         justify-center min-h-[calc(100svh-9rem)] relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-4xl @sm:text-6xl @md:text-7xl @lg:text-9xl 
-            font-bold text-white mb-4 @sm:mb-8 tracking-tight
+            font-bold text-gradient-primary mb-4 @sm:mb-8 tracking-tight
             animate-[fade-in_0.5s_ease-out]">
             DioGenio
           </h1>
@@ -36,9 +36,9 @@ export default function HeroSection() {
             </p>
             <Link 
               to="/gallery" 
-              className="inline-flex items-center justify-center bg-white text-black 
+              className="inline-flex items-center justify-center bg-medal-gold text-black 
                 min-w-[200px] px-6 @sm:px-8 @md:px-12 py-3 @sm:py-4 rounded-md 
-                text-base @sm:text-lg font-bold hover:bg-zinc-200 
+                text-base @sm:text-lg font-bold hover:bg-medal-gold/90 
                 transition-all duration-200 transform hover:scale-105 active:scale-95
                 shadow-lg hover:shadow-xl backdrop-blur-sm relative
                 after:absolute after:inset-0 after:rounded-md
