@@ -82,22 +82,31 @@ export default function ElementShowcase() {
           
           {/* Diogenes panel with art and philosophy */}
           <div className="diogenes-panel relative">
-            <div className="painting-frame relative mb-8">
-              <img 
-                src="/images/diogenes-original.jpg" 
-                alt="Diogenes in his barrel" 
-                className="rounded-lg border-4 border-medal-gold/50 shadow-2xl w-full"
-              />
-              {/* Hotspots that highlight elements */}
-              <div className="absolute top-[30%] left-[40%] w-12 h-12 hotspot" data-element="barrel">
-                <div className="absolute w-6 h-6 rounded-full bg-pink-hair/50 animate-ping"></div>
-                <div className="absolute w-6 h-6 rounded-full bg-pink-hair border-2 border-white"></div>
+            <div className="painting-frame relative mb-8 group">
+              <div className="relative overflow-hidden rounded-lg border-4 border-medal-gold/50 shadow-2xl">
+                {/* Base Image */}
+                <img 
+                  src="/images/diogenes-original.png" 
+                  alt="Diogenes in his barrel" 
+                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+                />
+
+                {/* Effect Layers - More visible by default */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-eyes/40 to-pink-hair/40 mix-blend-overlay transition-opacity duration-300 group-hover:opacity-20"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPgogIDxmaWx0ZXIgaWQ9Im5vaXNlIj4KICAgIDxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjA1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+CiAgICA8ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+CiAgPC9maWx0ZXI+CiAgPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0iMC4xNSIgc3R5bGU9Im1peC1ibGVuZC1tb2RlOiBvdmVybGF5OyIvPgo8L3N2Zz4=')] opacity-20 group-hover:opacity-40 mix-blend-overlay"></div>
+                
+                {/* Glitch Effect */}
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 group-hover:animate-[glitch_0.5s_linear_infinite]"></div>
+                </div>
+
+                {/* CRT Scanlines - Always visible */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)50%,rgba(0,0,0,0.25)50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] opacity-50"></div>
+
+                {/* Interactive Hover Effect */}
+                <div className="absolute inset-0 backdrop-blur-sm opacity-10 group-hover:opacity-30 transition-all duration-300"></div>
               </div>
-              <div className="absolute top-[25%] left-[60%] w-12 h-12 hotspot" data-element="lantern">
-                <div className="absolute w-6 h-6 rounded-full bg-medal-gold/50 animate-ping"></div>
-                <div className="absolute w-6 h-6 rounded-full bg-medal-gold border-2 border-white"></div>
-              </div>
-              {/* More hotspots for other elements */}
             </div>
             
             <div className="philosophy-note bg-black/70 backdrop-blur-sm border border-zinc-700 p-6 rounded-lg">

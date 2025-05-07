@@ -47,7 +47,7 @@ export default function HeroTerminal() {
             
             {/* Terminal text with typewriter effect */}
             <div className="space-y-4">
-              <p className="font-mono text-green-jacket typewriter-text">
+              <p className="font-mono text-green-jacket">
                 <span className="text-zinc-400">$</span> <span className="text-white">./wisdom.sh --based --unfiltered</span>
               </p>
               
@@ -63,11 +63,10 @@ export default function HeroTerminal() {
                 <span className="text-pink-hair">[ALERT]</span> Ancient wisdom for terminal degenerates detected. Philosophical shitposting as a service now online.
               </p>
               
-              {/* Command prompt with blinking cursor */}
+              {/* Command prompt without blinking cursor */}
               <div className="font-mono text-white flex items-center typing-delay-4">
                 <span className="text-zinc-400 mr-2">$</span>
                 <span className="typing-prompt">Enter the barrel</span>
-                <span className="blinking-cursor ml-1">█</span>
               </div>
             </div>
             
