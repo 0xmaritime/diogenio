@@ -3,10 +3,14 @@ import React from 'react';
 export default function HeroTerminal() {
   return (
     <section className="h-screen relative overflow-hidden">
-      {/* Animated background that resembles a glitchy digital barrel */}
-      <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-city-bg to-black">
+      {/* Updated background to align with new theme */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-city-bg)] via-[var(--color-tech-bg-opacity)] to-[var(--color-dark-eyes)]"> {/* Off-white to Dark Brown gradient */}
         {/* Animated grid lines resembling a digital version of Greek columns */}
-        <div className="absolute inset-0 grid-pattern animate-pulse-slow opacity-10"></div>
+        <div className="absolute inset-0 grid-pattern animate-pulse-slow opacity-5" style={{ 
+          '--grid-color-1': 'var(--color-dark-eyes)',
+          '--grid-color-2': 'var(--color-green-jacket)',
+          backgroundImage: 'linear-gradient(to bottom, rgba(57,50,43,0.1), rgba(41,105,85,0.2), rgba(57,50,43,0.1))'
+        }}></div>
         
         {/* Floating barrels and lanterns */}
         <div className="absolute h-full w-full">
@@ -19,22 +23,22 @@ export default function HeroTerminal() {
       </div>
       
       {/* Terminal window containing main content */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-5xl">
-        <div className="terminal-window bg-black border-2 border-pink-hair rounded-lg overflow-hidden shadow-[0_0_30px_rgba(255,0,140,0.3)]">
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-5xl pt-[calc(4rem+20px)] md:pt-0"> {/* 4rem for header height + 20px extra space */}
+        <div className="terminal-window bg-black border-2 border-[var(--color-dark-brown-opacity-30)] rounded-lg overflow-hidden shadow-[0_0_20px_rgba(57,50,43,0.4)]"> {/* Updated border and shadow */}
           {/* Terminal header */}
-          <div className="terminal-header flex items-center bg-zinc-900 px-4 py-2 border-b border-zinc-800">
+          <div className="terminal-header flex items-center bg-[var(--color-accent-1)] px-4 py-2 border-b border-[var(--color-dark-brown-opacity-30)]"> {/* Updated header bg and border */}
             <div className="flex gap-2 mr-4">
-              <div className="w-3 h-3 rounded-full bg-pink-hair"></div>
-              <div className="w-3 h-3 rounded-full bg-medal-gold"></div>
-              <div className="w-3 h-3 rounded-full bg-blue-eyes"></div>
+              <div className="w-3 h-3 rounded-full bg-white/50"></div> {/* Simplified dots */}
+              <div className="w-3 h-3 rounded-full bg-white/50"></div>
+              <div className="w-3 h-3 rounded-full bg-white/50"></div>
             </div>
-            <div className="font-mono text-xs text-zinc-400">diogenes@barrel:~</div>
+            <div className="font-mono text-xs text-white">diogenes@barrel:~</div> {/* Updated text color */}
           </div>
           
           {/* Terminal content */}
           <div className="p-6 space-y-8">
             {/* ASCII art logo */}
-            <pre className="font-mono text-sm md:text-base text-medal-gold whitespace-pre-wrap leading-tight overflow-hidden">
+            <pre className="terminal-ascii font-mono text-sm md:text-base text-[var(--color-accent-3)] whitespace-pre-wrap leading-tight overflow-hidden"> {/* Updated text color to Pale Olive */}
 {`
 ██████╗ ██╗ ██████╗  ██████╗ ███████╗███╗   ██╗██╗ ██████╗ 
 ██╔══██╗██║██╔═══██╗██╔════╝ ██╔════╝████╗  ██║██║██╔═══██╗
@@ -47,24 +51,24 @@ export default function HeroTerminal() {
             
             {/* Terminal text with typewriter effect */}
             <div className="space-y-4">
-              <p className="font-mono text-green-jacket">
-                <span className="text-zinc-400">$</span> <span className="text-white">./wisdom.sh --based --unfiltered</span>
+              <p className="font-mono text-[var(--color-accent-3)]"> {/* Updated text color to Pale Olive */}
+                <span className="text-[var(--color-text-secondary)]">$</span> <span className="text-[var(--color-text-primary)]">./wisdom.sh --based --unfiltered</span>
               </p>
               
-              <p className="font-mono text-white leading-relaxed max-w-3xl typing-delay-1">
-                <span className="text-medal-gold">[INIT]</span> Loading 4,200 Digital Cynics into the blockchain...
+              <p className="font-mono text-[var(--color-text-primary)] leading-relaxed max-w-3xl typing-delay-1">
+                <span className="text-[var(--color-accent-3)]">[INIT]</span> Loading 4,200 Digital Cynics into the blockchain... {/* Pale Olive for status */}
               </p>
               
-              <p className="font-mono text-white leading-relaxed max-w-3xl typing-delay-2">
-                <span className="text-blue-eyes">[STDOUT]</span> "There's only a finger's width between genius and complete retardation" - Diogenes (probably)
+              <p className="font-mono text-[var(--color-text-primary)] leading-relaxed max-w-3xl typing-delay-2">
+                <span className="text-[var(--color-accent-2)]">[STDOUT]</span> "There's only a finger's width between genius and complete retardation" - Diogenes (probably) {/* Forest Green for stdout */}
               </p>
               
-              <p className="font-mono text-white leading-relaxed max-w-3xl typing-delay-3">
-                <span className="text-pink-hair">[ALERT]</span> Ancient wisdom for terminal degenerates detected. Philosophical shitposting as a service now online.
+              <p className="font-mono text-[var(--color-text-primary)] leading-relaxed max-w-3xl typing-delay-3">
+                <span className="text-[var(--color-accent-1)]">[ALERT]</span> Ancient wisdom for terminal degenerates detected. Philosophical shitposting as a service now online. {/* Teal Blue for alert */}
               </p>
               
               {/* Command prompt without blinking cursor */}
-              <div className="font-mono text-white flex items-center typing-delay-4">
+              <div className="font-mono text-[var(--color-text-primary)] flex items-center typing-delay-4">
                 <span className="text-zinc-400 mr-2">$</span>
                 <span className="typing-prompt">Enter the barrel</span>
               </div>
@@ -74,13 +78,13 @@ export default function HeroTerminal() {
             <div className="space-x-4 typing-delay-5 opacity-0 animate-fade-in">
               <a 
                 href="/gallery" 
-                className="inline-block bg-pink-hair text-black px-8 py-3 rounded-md glitch-hover font-mono font-bold"
+                className="inline-block bg-[var(--color-accent-1)] text-[var(--color-text-primary)] px-8 py-3 rounded-md glitch-hover font-mono font-bold hover:bg-[var(--color-accent-1)]/80 transition-colors" /* Teal Blue bg, white text, hover effect */
               >
                 $ cd /gallery
               </a>
               <a 
                 href="/about" 
-                className="inline-block bg-transparent text-medal-gold border border-medal-gold px-8 py-3 rounded-md glitch-hover font-mono"
+                className="inline-block bg-transparent text-[var(--color-city-bg)] border border-[var(--color-accent-2)] px-8 py-3 rounded-md glitch-hover font-mono hover:bg-[var(--color-accent-2)] hover:text-[var(--color-text-primary)] transition-colors" /* Forest Green border, Off-White text, hover effect */
               >
                 $ man diogenio
               </a>
@@ -93,10 +97,10 @@ export default function HeroTerminal() {
       <div className="absolute inset-0 matrix-code opacity-5 pointer-events-none"></div>
       
       {/* Hidden philosophical quotes that appear on hover */}
-      <div className="absolute top-5 left-5 text-xs font-mono text-zinc-600 hover:text-pink-hair transition-colors hidden md:block">
+      <div className="absolute top-5 left-5 text-xs font-mono text-[var(--color-text-secondary)] hover:text-[var(--color-accent-1)] transition-colors hidden md:block"> {/* Teal Blue hover */}
         The cancelled will inherit the blockchain.
       </div>
-      <div className="absolute bottom-5 right-5 text-xs font-mono text-zinc-600 hover:text-medal-gold transition-colors hidden md:block">
+      <div className="absolute bottom-5 right-5 text-xs font-mono text-[var(--color-text-secondary)] hover:text-[var(--color-accent-3)] transition-colors hidden md:block"> {/* Pale Olive hover */}
         Stand out of my digital sunlight.
       </div>
     </section>

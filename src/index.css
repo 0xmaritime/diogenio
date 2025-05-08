@@ -39,7 +39,7 @@
 /* Base styles */
 @layer base {
   body {
-    @apply bg-zinc-900 text-white min-h-screen;
+    @apply bg-[var(--color-city-bg)] text-[var(--color-dark-eyes)] min-h-screen; /* Off-White bg, Dark Brown text */
   }
 
   #root {

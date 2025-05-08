@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 
 export default function HeroSection() {
   return (
-    <section className="min-h-[100svh] pt-16 pb-20 relative @container">
+    <section className="min-h-[100svh] pb-20 relative @container"> {/* Removed pt-16 */}
       {/* Background with modern gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b 
-        from-color-mix(in oklch, var(--color-city-bg) 90%, black) 
-        to-color-mix(in oklch, var(--color-dark-eyes) 80%, black)" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-city-bg)] to-[var(--color-dark-eyes)]" /> {/* Off-White to Dark Brown gradient */}
       
       {/* Radial pattern overlay */}
       <div className="absolute inset-0 opacity-5 
@@ -36,14 +34,14 @@ export default function HeroSection() {
             </p>
             <Link 
               to="/gallery" 
-              className="inline-flex items-center justify-center bg-medal-gold text-black 
+              className="inline-flex items-center justify-center bg-[var(--color-accent-3)] text-[var(--color-dark-eyes)] 
                 min-w-[200px] px-6 @sm:px-8 @md:px-12 py-3 @sm:py-4 rounded-md 
-                text-base @sm:text-lg font-bold hover:bg-medal-gold/90 
+                text-base @sm:text-lg font-bold hover:bg-[var(--color-accent-3)]/90 
                 transition-all duration-200 transform hover:scale-105 active:scale-95
                 shadow-lg hover:shadow-xl backdrop-blur-sm relative
                 after:absolute after:inset-0 after:rounded-md
                 after:ring-2 after:ring-white/10 after:hover:ring-white/20
-                after:transition-all"
+                after:transition-all" /* Pale Olive bg, Dark Brown text */
             >
               Enter the Barrel
             </Link>
@@ -53,10 +51,10 @@ export default function HeroSection() {
         {/* Scroll indicator */}
         <div className="absolute bottom-10 animate-[bounce_2s_infinite]
           opacity-50 hover:opacity-100 transition-opacity duration-200">
-          <div className="w-5 @sm:w-6 h-8 @sm:h-10 border-2 border-zinc-400 
-            rounded-full transition-colors hover:border-white">
-            <div className="w-1 h-2 bg-zinc-400 rounded-full mx-auto mt-2 
-              transition-colors group-hover:bg-white" />
+          <div className="w-5 @sm:w-6 h-8 @sm:h-10 border-2 border-[var(--color-text-secondary)] 
+            rounded-full transition-colors hover:border-[var(--color-text-primary)]"> {/* Warm Gray border, White hover */}
+            <div className="w-1 h-2 bg-[var(--color-text-secondary)] rounded-full mx-auto mt-2 
+              transition-colors group-hover:bg-[var(--color-text-primary)]" /> {/* Warm Gray bg, White hover */}
           </div>
         </div>
       </div>

@@ -29,7 +29,7 @@ export default function GalleryPage() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="bg-card-dark text-white px-4 py-2 rounded-lg border border-pink-hair/20"
+            className="bg-[var(--color-dark-eyes)] text-[var(--color-city-bg)] px-4 py-2 rounded-lg border border-[var(--color-teal-blue-opacity-20)] focus:ring-[var(--color-accent-1)] focus:border-[var(--color-accent-1)]" /* Dark Brown bg, Off-White text, Teal Blue border */
           >
             <option value="id">Latest</option>
             <option value="rarity">Rarity</option>
@@ -38,7 +38,7 @@ export default function GalleryPage() {
           <select
             value={filterRarity}
             onChange={(e) => setFilterRarity(e.target.value)}
-            className="bg-card-dark text-white px-4 py-2 rounded-lg border border-pink-hair/20"
+            className="bg-[var(--color-dark-eyes)] text-[var(--color-city-bg)] px-4 py-2 rounded-lg border border-[var(--color-teal-blue-opacity-20)] focus:ring-[var(--color-accent-1)] focus:border-[var(--color-accent-1)]" /* Dark Brown bg, Off-White text, Teal Blue border */
           >
             <option value="all">All Rarities</option>
             <option value="common">Common</option>

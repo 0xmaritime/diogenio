@@ -1,24 +1,32 @@
 :root {
   /* Primary Colors */
-  --color-pink-hair: #ff6b9d;
-  --color-blue-eyes: #4da6ff;
-  --color-green-jacket: #00c896;
-  --color-medal-gold: #ffd700;
-  --color-blue-shirt: #3a86ff;
-  --color-dark-eyes: #1a1a2e;
+  --color-pink-hair: #488AA2;  /* Teal Blue */
+  --color-blue-eyes: #296955;  /* Forest Green */
+  --color-green-jacket: #CBCB9F; /* Pale Olive */
+  --color-medal-gold: #CBCB9F;  /* Pale Olive */
+  --color-blue-shirt: #488AA2;  /* Teal Blue */
+  --color-dark-eyes: #39322B;  /* Dark Brown */
 
   /* Background Colors */
-  --color-city-bg: #e0e0f0;
-  --color-tech-bg: #f0f0f0;
-  --color-card-dark: #e0e0f5;
+  --color-city-bg: #E9E8E6;  /* Off-White */
+  --color-tech-bg: #E9E8E6;  /* Off-White */
+  --color-card-dark: #39322B;  /* Dark Brown */
 
   /* Text Colors */
   --color-text-primary: #ffffff;
-  --color-text-secondary: #b3b3b3;
-  --color-text-accent: #4da6ff;
+  --color-text-secondary: #a19a94;  /* Derived from Dark Brown */
+  --color-text-accent: #488AA2;  /* Teal Blue */
 
   /* Accent Colors */
-  --color-accent-1: #ff6b9d;
-  --color-accent-2: #4da6ff;
-  --color-accent-3: #00c896;
+  --color-accent-1: #488AA2;  /* Teal Blue */
+  --color-accent-2: #296955;  /* Forest Green */
+  --color-accent-3: #CBCB9F;  /* Pale Olive */
+
+  /* Opacity variants that might be useful */
+  --color-tech-bg-opacity: rgba(233, 232, 230, 0.8); /* Off-White with opacity */
+  --color-card-dark-opacity: rgba(57, 50, 43, 0.8); /* Dark Brown with opacity */
+  --color-dark-brown-opacity-30: rgba(57, 50, 43, 0.3); /* Dark Brown with 30% opacity for terminal borders */
+  --color-teal-blue-opacity-30: rgba(72, 138, 162, 0.3); /* Teal Blue with 30% opacity for card borders */
+  --color-dark-brown-opacity-90: rgba(57, 50, 43, 0.9); /* Dark Brown with 90% opacity for header bg */
+  --color-teal-blue-opacity-20: rgba(72, 138, 162, 0.2); /* Teal Blue with 20% opacity for header borders */
 }

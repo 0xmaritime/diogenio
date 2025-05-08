@@ -7,20 +7,20 @@
 }
 
 @keyframes glow {
-  0% { opacity: 0.7; }
-  100% { opacity: 1; }
+  0% { opacity: 0.4; } /* Reduced intensity */
+  100% { opacity: 0.6; } /* Reduced intensity */
 }
 
 /* Additional theme utilities can be added here */
 .text-gradient-primary {
-  background: linear-gradient(to right, var(--color-pink-hair), var(--color-blue-eyes));
+  background: linear-gradient(to right, var(--color-accent-1), var(--color-accent-2)); /* Teal Blue to Forest Green */
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
 }
 
 .border-glow {
-  box-shadow: 0 0 8px var(--color-accent-1);
+  box-shadow: 0 0 5px rgba(57, 50, 43, 0.5); /* Dark Brown derived shadow, reduced intensity */
 }
 
 /* New DioGenio animations and effects */
@@ -102,14 +102,14 @@
 
 .glitch-text::before {
   left: 2px;
-  text-shadow: -2px 0 var(--color-pink-hair);
+  text-shadow: -2px 0 var(--color-dark-eyes); /* Earthy glitch */
   clip: rect(44px, 450px, 56px, 0);
   animation: glitch-anim 5s infinite linear alternate-reverse;
 }
 
 .glitch-text::after {
   left: -2px;
-  text-shadow: -2px 0 var(--color-blue-eyes), 2px 2px var(--color-pink-hair);
+  text-shadow: -2px 0 var(--color-green-jacket), 2px 2px var(--color-dark-eyes); /* Earthy glitch */
   animation: glitch-anim2 1s infinite linear alternate-reverse;
 }
 
@@ -179,13 +179,13 @@
 }
 
 .glitch-text-subtle::before {
-  color: var(--color-pink-hair);
+  color: var(--color-dark-eyes); /* Earthy subtle glitch */
   left: -2px;
   animation: glitch-subtle-1 2s infinite;
 }
 
 .glitch-text-subtle::after {
-  color: var(--color-blue-eyes);
+  color: var(--color-green-jacket); /* Earthy subtle glitch */
   left: 2px;
   animation: glitch-subtle-2 3s infinite;
 }
@@ -257,7 +257,7 @@
   left: -10px;
   width: 5px;
   height: 100%;
-  background-color: var(--color-pink-hair);
+  background-color: var(--color-accent-3); /* Pale Olive for earthy glitch hover */
   animation: glitch-line 0.5s ease-in-out infinite alternate;
 }
 
@@ -269,9 +269,29 @@
 /* Grid pattern */
 .grid-pattern {
   background-image:
-    linear-gradient(to right, var(--color-pink-hair) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--color-blue-eyes) 1px, transparent 1px);
+    linear-gradient(to right, var(--color-dark-eyes) 1px, transparent 1px), /* Dark Brown */
+    linear-gradient(to bottom, var(--color-green-jacket) 1px, transparent 1px); /* Pale Olive */
   background-size: 40px 40px;
+}
+
+/* ASCII Art Responsive Styles */
+@media (max-width: 768px) {
+  .terminal-ascii {
+    font-size: 0.5rem;
+    line-height: 1.2;
+    overflow-x: auto;
+    white-space: pre;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .terminal-ascii::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  .terminal-ascii::-webkit-scrollbar-thumb {
+    background-color: var(--color-accent-3);
+    border-radius: 2px;
+  }
 }
 
 /* Barrel pattern */

@@ -1,126 +1,115 @@
 import React from 'react';
+import { nftCollection } from '../../data/nftData';
 
 export default function NftGallery() {
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const total = nftCollection.length;
+
+  const navigate = (direction) => {
+    if (direction === 'next') {
+      setCurrentIndex((prev) => (prev + 1) % total);
+    } else {
+      setCurrentIndex((prev) => (prev - 1 + total) % total);
+    }
+  };
+
   return (
-    <section className="py-24 relative bg-gradient-to-b from-zinc-900 to-black overflow-hidden">
-      {/* Matrix code background */}
+    <section className="py-24 relative bg-[var(--color-city-bg)] overflow-hidden">
       <div className="absolute inset-0 matrix-code opacity-5 pointer-events-none"></div>
       
-      {/* Glitchy section title */}
       <div className="container mx-auto px-4 mb-16 text-center">
-        <h2 className="inline-block relative font-display text-4xl md:text-5xl font-black glitch-text-subtle"
+        <h2 className="inline-block relative font-display text-4xl md:text-5xl font-black glitch-text-subtle text-[var(--color-dark-eyes)]"
             data-text="THE COLLECTION">
           THE COLLECTION
         </h2>
-        <div className="w-24 h-1 bg-gradient-to-r from-pink-hair to-blue-eyes mx-auto mt-4"></div>
+        <div className="w-24 h-1 bg-gradient-to-r from-[var(--color-accent-1)] to-[var(--color-accent-2)] mx-auto mt-4"></div>
       </div>
       
       <div className="container mx-auto px-4">
-        <div className="gallery-perspective relative h-[600px] perspective-container">
-          {/* NFT cards positioned in 3D space */}
-          <div className="absolute top-[10%] left-[20%] w-64 h-64 gallery-card transform-3d rotate-y-15 rotate-x-5">
-            <div className="w-full h-full relative gallery-card-inner group">
-              <img 
-                src="/nfts/diogenio-1.png" 
-                alt="DioGenio #1" 
-                className="w-full h-full object-cover rounded-lg shadow-2xl border-2 border-pink-hair"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent 
-                              opacity-0 group-hover:opacity-100 transition-opacity duration-300
-                              flex flex-col justify-end p-4 rounded-lg">
-                <h3 className="text-white font-mono text-lg">Reality Glitch #042</h3>
-                <p className="text-zinc-300 text-sm">Rarity: Legendary</p>
-              </div>
+        <div className="relative min-h-[600px] flex justify-center items-center">
+          <div className="relative w-full max-w-2xl h-[550px] perspective-1000 mx-16">
+            <div className="controls absolute top-1/2 left-0 right-0 -translate-y-1/2 z-50 flex justify-between pointer-events-none">
+              <button 
+                onClick={() => navigate('prev')}
+                className="pointer-events-auto bg-white border-4 border-[var(--color-dark-eyes)] px-6 py-4 cursor-pointer font-mono text-2xl transition-all hover:scale-110 rounded-lg hover:bg-[var(--color-accent-1)] hover:text-white shadow-lg md:-translate-x-40 -translate-x-16"
+              >
+                ←
+              </button>
+              <button 
+                onClick={() => navigate('next')}
+                className="pointer-events-auto bg-white border-4 border-[var(--color-dark-eyes)] px-6 py-4 cursor-pointer font-mono text-2xl transition-all hover:scale-110 rounded-lg hover:bg-[var(--color-accent-1)] hover:text-white shadow-lg md:translate-x-40 translate-x-16"
+              >
+                →
+              </button>
+            </div>
+            
+            <div className="cards-wrapper relative w-full h-full flex justify-center items-center">
+              {nftCollection.map((nft, index) => {
+                const position = 
+                  index === currentIndex ? 'current' :
+                  index === (currentIndex - 1 + total) % total ? 'prev' :
+                  index === (currentIndex + 1) % total ? 'next' : 'hidden';
+                
+                return (
+                  <div 
+                    key={nft.id}
+                    className={`pokemon-card absolute top-0 left-1/2 transform -translate-x-1/2 transition-all duration-500 ease-in-out
+                      ${position === 'current' ? 'z-30 opacity-100 scale-100' : 
+                        position === 'prev' ? 'z-20 opacity-80 scale-90 -rotate-6 -translate-x-[120%]' : 
+                        position === 'next' ? 'z-20 opacity-80 scale-90 rotate-6 translate-x-[20%]' : 
+                        'opacity-0 scale-75'}`}
+                  >
+                    <div className="bg-white border-4 border-[var(--color-dark-eyes)] rounded-2xl shadow-xl w-[350px] h-[500px] p-6 overflow-hidden">
+                      <div className="card-header flex justify-between items-center mb-4 min-h-[2.5rem]">
+                        <div className="name font-mono text-lg font-bold whitespace-nowrap overflow-hidden text-ellipsis max-w-[180px]">
+                          {nft.name}
+                        </div>
+                        <div className="type bg-[var(--color-accent-1)] border-2 border-[var(--color-dark-eyes)] rounded-lg px-2 py-1 text-xs font-bold uppercase">
+                          {nft.attributes.rarity}
+                        </div>
+                      </div>
+                      
+                      <div className="image-container w-full h-48 mb-6 border-3 border-[var(--color-dark-eyes)] rounded-lg overflow-hidden bg-gray-100">
+                        <img src={nft.image} alt={nft.name} className="w-full h-full object-cover" />
+                      </div>
+                      
+                      <div className="stats mb-6">
+                        <div className="hp font-mono mb-3">Wisdom: {nft.attributes.wisdom}</div>
+                        <div className="attacks mb-3">
+                          <strong className="font-mono">Philosophy:</strong>
+                          <ul className="mt-2">
+                            <li className="bg-gray-100 border-2 border-gray-300 rounded-md px-3 py-2 mb-2 font-mono">
+                              {nft.attributes.philosophy}
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      
+                      <div className="footer text-center text-sm border-t-2 border-[var(--color-dark-eyes)] pt-4 font-mono">
+                        DioGenio ID: <span>#{nft.id}</span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            
+            <div className="counter absolute bottom-0 w-full text-center font-mono text-lg transition-opacity">
+              {currentIndex + 1}/{total}
             </div>
           </div>
-          
-          <div className="absolute top-[5%] right-[25%] w-56 h-56 gallery-card transform-3d rotate-y-neg10 rotate-x-5">
-            <div className="w-full h-full relative gallery-card-inner group">
-              <img 
-                src="/nfts/diogenio-2.png" 
-                alt="DioGenio #2" 
-                className="w-full h-full object-cover rounded-lg shadow-2xl border-2 border-blue-eyes"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent 
-                              opacity-0 group-hover:opacity-100 transition-opacity duration-300
-                              flex flex-col justify-end p-4 rounded-lg">
-                <h3 className="text-white font-mono text-lg">Terminal Sage #137</h3>
-                <p className="text-zinc-300 text-sm">Rarity: Epic</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="absolute bottom-[15%] left-[30%] w-60 h-60 gallery-card transform-3d rotate-y-20 rotate-x-neg5">
-            <div className="w-full h-full relative gallery-card-inner group">
-              <img 
-                src="/nfts/diogenio-3.png" 
-                alt="DioGenio #3" 
-                className="w-full h-full object-cover rounded-lg shadow-2xl border-2 border-medal-gold"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent 
-                              opacity-0 group-hover:opacity-100 transition-opacity duration-300
-                              flex flex-col justify-end p-4 rounded-lg">
-                <h3 className="text-white font-mono text-lg">Crypto Hermit #789</h3>
-                <p className="text-zinc-300 text-sm">Rarity: Rare</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="absolute bottom-[10%] right-[15%] w-52 h-52 gallery-card transform-3d rotate-y-neg25 rotate-x-neg10">
-            <div className="w-full h-full relative gallery-card-inner group">
-              <img 
-                src="/nfts/diogenio-4.png" 
-                alt="DioGenio #4" 
-                className="w-full h-full object-cover rounded-lg shadow-2xl border-2 border-green-jacket"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent 
-                              opacity-0 group-hover:opacity-100 transition-opacity duration-300
-                              flex flex-col justify-end p-4 rounded-lg">
-                <h3 className="text-white font-mono text-lg">Based Philosopher #420</h3>
-                <p className="text-zinc-300 text-sm">Rarity: Common</p>
-              </div>
-            </div>
-          </div>
-          
-          {/* Center featured NFT */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 gallery-card featured-card">
-            <div className="w-full h-full relative gallery-card-inner group">
-              <img 
-                src="/nfts/diogenio-featured.png" 
-                alt="Featured DioGenio" 
-                className="w-full h-full object-cover rounded-lg shadow-[0_0_30px_rgba(255,0,140,0.3)] 
-                           border-2 border-white"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent 
-                              opacity-0 group-hover:opacity-100 transition-opacity duration-300
-                              flex flex-col justify-end p-4 rounded-lg">
-                <div className="bg-pink-hair/80 text-black px-2 py-1 text-xs inline-block mb-2">FEATURED</div>
-                <h3 className="text-white font-mono text-lg">DioGenio Prime #001</h3>
-                <p className="text-zinc-300 text-sm">Rarity: Mythic</p>
-              </div>
-            </div>
-          </div>
-          
-          {/* Connection lines between NFTs - subtle */}
-          <svg className="absolute inset-0 w-full h-full z-0 connection-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <line x1="20" y1="10" x2="50" y2="50" className="line-connect opacity-20 stroke-pink-hair" />
-            <line x1="75" y1="5" x2="50" y2="50" className="line-connect opacity-20 stroke-blue-eyes" />
-            <line x1="30" y1="85" x2="50" y2="50" className="line-connect opacity-20 stroke-medal-gold" />
-            <line x1="85" y1="90" x2="50" y2="50" className="line-connect opacity-20 stroke-green-jacket" />
-          </svg>
         </div>
         
-        {/* View more link */}
         <div className="text-center mt-16">
           <a 
             href="/gallery" 
-            className="inline-block bg-transparent border-2 border-pink-hair
-                       text-white px-8 py-3 rounded-lg
-                       hover:bg-pink-hair/20 transition-all
+            className="inline-block bg-transparent border-2 border-[var(--color-accent-1)]
+                       text-[var(--color-dark-eyes)] px-8 py-3 rounded-lg
+                       hover:bg-[var(--color-accent-1)]/20 transition-all
                        font-mono relative overflow-hidden group"
           >
             <span className="relative z-10">VIEW ALL DIOGENIOS</span>
-            <span className="absolute inset-0 bg-gradient-to-r from-pink-hair to-blue-eyes opacity-0 
+            <span className="absolute inset-0 bg-gradient-to-r from-[var(--color-accent-1)] to-[var(--color-accent-2)] opacity-0 
                              group-hover:opacity-30 transition-opacity"></span>
           </a>
         </div>

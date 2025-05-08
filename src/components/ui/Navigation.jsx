@@ -21,11 +21,11 @@ export default function Navigation({ variant = 'desktop' }) {
             <NavLink
               to={item.href}
               className={({ isActive }) => `
-                block px-3 py-1.5 text-sm text-zinc-300 hover:text-white 
+                block px-3 py-1.5 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] 
                 transition-all duration-200 font-medium select-none rounded-full
-                ${isActive ? 'text-white bg-white/10' : 'opacity-75'}
+                ${isActive ? 'text-[var(--color-accent-1)] bg-[var(--color-accent-1)]/10' : 'opacity-75'} {/* Active link: Teal Blue text and light Teal Blue bg */}
                 ${isMobile ? 'text-center whitespace-nowrap' : ''}
-                relative hover:bg-white/5
+                relative hover:bg-[var(--color-text-primary)]/5
               `}
             >
               {item.label}
