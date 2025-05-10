@@ -47,7 +47,7 @@ export const nftCollection = [
       rarity: 'Epic',
       wisdom: 90,
       cynicism: 95,
-      rebuke: 'Kingslayer',
+      barrel: 'Kingslayer', // Changed from rebuke
       philosophy: 'Power is the greatest illusion of all'
     }
   },
@@ -67,9 +67,9 @@ export const nftCollection = [
 ];
 
 export const rarityLevels = {
-  Common: { color: 'text-[var(--color-dark-eyes)]', chance: '45%' },       /* Dark Brown */
-  Uncommon: { color: 'text-[var(--color-text-secondary)]', chance: '30%' }, /* Warm Gray for Uncommon as a mid-tier */
-  Rare: { color: 'text-[var(--color-accent-1)]', chance: '15%' },         /* Teal Blue */
-  Epic: { color: 'text-[var(--color-accent-2)]', chance: '7%' },           /* Forest Green */
-  Legendary: { color: 'text-[var(--color-accent-3)]', chance: '3%' }      /* Pale Olive */
+  Common: { color: 'text-[var(--color-black)]', chance: '45%' },       /* Black text */
+  Uncommon: { color: 'text-[var(--color-text-secondary)]', chance: '30%' }, /* Dark Gray text */
+  Rare: { color: 'text-[var(--color-accent-1)]', chance: '15%' },         /* Teal Blue text */
+  Epic: { color: 'text-[var(--color-accent-2)]', chance: '7%' },           /* Forest Green text */
+  Legendary: { color: 'text-[var(--color-black)]', chance: '3%' }      /* Black text */
 };

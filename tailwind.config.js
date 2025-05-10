@@ -5,19 +5,24 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: { // Moved out of extend
+      sans: ['Times New Roman', 'Times', 'serif'],
+      serif: ['Times New Roman', 'Times', 'serif'],
+      mono: ['Times New Roman', 'Times', 'serif'],
+    },
     extend: {
       colors: {
         // Primary Colors
         'pink-hair': 'var(--color-pink-hair)',
         'blue-eyes': 'var(--color-blue-eyes)',
         'green-jacket': 'var(--color-green-jacket)',
-        'medal-gold': 'var(--color-medal-gold)',
-        'blue-shirt': 'var(--color-blue-shirt)',
+        'medal-gold': 'var(--color-green-jacket)', // Changed from --color-medal-gold
+        'blue-shirt': 'var(--color-pink-hair)',   // Changed from --color-blue-shirt
         'dark-eyes': 'var(--color-dark-eyes)',
 
         // Background Colors
         'city-bg': 'var(--color-city-bg)',
-        'tech-bg': 'var(--color-tech-bg)',
+        'tech-bg': 'var(--color-city-bg)',       // Changed from --color-tech-bg
         'card-dark': 'var(--color-card-dark)',
 
         // Text Colors
@@ -42,7 +47,6 @@ export default {
       },
       animation: {
         float: 'float 6s ease-in-out infinite',
-        glow: 'glow 2s ease-in-out infinite alternate',
         'pulse': 'pulse 10s ease-in-out infinite',
         'bounce': 'bounce 2s infinite',
         'fade-in': 'fadeIn 0.5s ease-out',
@@ -51,10 +55,6 @@ export default {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
-        },
-        glow: {
-          '0%': { opacity: '0.7' },
-          '100%': { opacity: '1' },
         },
         fadeIn: {
           '0%': { opacity: '0', transform: 'translateY(10px)' },

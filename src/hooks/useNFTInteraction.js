@@ -30,7 +30,13 @@ export function useNFTInteraction() {
 
       return hash;
     } catch (err) {
-      setError(err.message);
+      if (err && typeof err === 'object' && typeof err.shortMessage === 'string') {
+        setError(err.shortMessage);
+      } else if (err && typeof err === 'object' && typeof err.message === 'string') {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred during minting.');
+      }
       return null;
     } finally {
       setIsMinting(false);

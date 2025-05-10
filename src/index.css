@@ -1,25 +1,14 @@
-@layer base, components, utilities;
-
 @import "./styles/color-scheme.css";
-@import "tailwindcss";
+@import "tailwindcss"; /* Single import for Tailwind v4 */
 
-@property --glow-opacity {
-  syntax: '<number>';
-  inherits: false;
-  initial-value: 0.7;
-}
+/* Base styles */
+:root {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
-@theme {
-  /* Colors using modern OKLCH */
-  --color-barrel: oklch(0.95 0.02 83);      /* Warm wood tone */
-  --color-lantern: oklch(0.85 0.15 64);     /* Golden light */
-  --color-cynical: oklch(0.40 0.03 280);    /* Philosophical blue */
-  --color-wisdom: oklch(0.30 0.01 0);       /* Deep wisdom black */
-  --color-market: oklch(0.98 0.01 60);      /* Market square beige */
-  
   /* Typography */
-  --font-system: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
-    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-editorial-serif: 'Times New Roman', Times, serif;
+  --font-system: var(--font-editorial-serif); /* Default to editorial serif */
   
   /* Spacing */
   --spacing-base: 0.25rem;
@@ -30,16 +19,10 @@
   --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Base styles */
-:root {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Base styles */
 @layer base {
   body {
-    @apply bg-[var(--color-city-bg)] text-[var(--color-dark-eyes)] min-h-screen; /* Off-White bg, Dark Brown text */
+    @apply bg-[var(--color-city-bg)] text-[var(--color-black)] min-h-screen; /* Ivory bg, Black text */
+    font-family: var(--font-system); /* Explicitly set serif font for the body */
   }
 
   #root {
@@ -50,7 +33,7 @@
 /* Component styles */
 @layer components {
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-300;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#d4d4d8];
   }
 }
 

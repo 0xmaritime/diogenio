@@ -5,15 +5,15 @@ export default function Header() {
   const { isConnected, connect, disconnect } = useWallet();
 
   return (
-    <header className="fixed w-full top-0 z-50 backdrop-blur-sm border-b border-[var(--color-teal-blue-opacity-20)]"> {/* Teal Blue border */}
-      <div className="absolute inset-0 bg-[var(--color-dark-brown-opacity-90)]" /> {/* Dark Brown background */}
+    <header className="fixed w-full top-0 z-50 backdrop-blur-sm border-b border-[var(--color-black-opacity-10)]"> {/* Subtle black border */}
+      <div className="absolute inset-0 bg-[var(--color-ivory)]" /> {/* Ivory background */}
       
       <div className="relative max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16 @container">
           <div className="flex items-center shrink-0 mr-4">
             <a 
               href="/" 
-              className="text-xl @sm:text-2xl @md:text-3xl font-bold text-gradient-primary 
+              className="text-xl @sm:text-2xl @md:text-3xl font-bold text-[var(--color-text-primary)] 
                 font-stretch-[60%] @supports-[text-wrap: balance]:text-wrap-balance
                 transition-all duration-200"
             >
@@ -44,7 +44,7 @@ export default function Header() {
         </div>
         
         {/* Mobile Navigation */}
-        <div className="lg:hidden -mt-1 pb-2 border-t border-[var(--color-teal-blue-opacity-20)]"> {/* Teal Blue border */}
+        <div className="lg:hidden -mt-1 pb-2 border-t border-[var(--color-black-opacity-10)]"> {/* Subtle black border */}
           <div className="py-1">
             <Navigation variant="mobile" />
           </div>

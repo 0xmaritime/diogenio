@@ -7,7 +7,7 @@ export default function ElementShowcase() {
       
       {/* Section title that looks like a command prompt */}
       <div className="container mx-auto px-4 mb-16">
-        <div className="command-prompt inline-block px-4 py-2 bg-[var(--color-dark-eyes)] border border-[var(--color-accent-3)]"> {/* Dark Brown bg, Pale Olive border */}
+        <div className="command-prompt inline-block px-4 py-2 bg-[var(--color-ivory)] border border-[var(--color-accent-3)]"> {/* Ivory bg, Pale Olive border */}
           <span className="text-[var(--color-accent-3)] font-mono text-sm">[user@barrel]$</span> {/* Pale Olive text */}
           <h2 className="text-[var(--color-text-primary)] font-mono text-3xl font-bold inline-block ml-2">cat /elements.md</h2>
         </div>
@@ -16,8 +16,8 @@ export default function ElementShowcase() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Core elements breakdown in a terminal window style */}
-          <div className="terminal-panel bg-[var(--color-card-dark-opacity)] border border-[var(--color-dark-brown-opacity-30)] rounded-lg p-6"> {/* Dark Brown bg and border */}
-            <div className="mb-6 border-b border-[var(--color-dark-brown-opacity-30)] pb-4"> {/* Dark Brown border */}
+          <div className="terminal-panel bg-[var(--color-ivory-opacity-80)] border border-[var(--color-black-opacity-10)] rounded-lg p-6"> {/* Ivory opacity bg, black opacity border */}
+            <div className="mb-6 border-b border-[var(--color-black-opacity-10)] pb-4"> {/* Subtle black border */}
               <h3 className="font-mono text-xl text-[var(--color-accent-1)]">Core Elements:</h3> {/* Teal Blue text */}
             </div>
             
@@ -27,12 +27,12 @@ export default function ElementShowcase() {
                   <span className="text-[var(--color-text-secondary)] mr-2">[01]</span> BARREL = CONTAINER
                 </h4>
                 <div className="flex gap-4 flex-wrap">
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">wooden_barrel</div> {/* Dark Brown bg, Off-White text */}
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">gaming_pc</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">fridge</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">bunker</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">pip_boy</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">switch</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">wooden_barrel</div> {/* Ivory bg, Black text */}
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">gaming_pc</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">fridge</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">bunker</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">pip_boy</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">switch</div>
                 </div>
               </div>
               
@@ -41,12 +41,12 @@ export default function ElementShowcase() {
                   <span className="text-[var(--color-text-secondary)] mr-2">[02]</span> LANTERN = WISDOM OBJECT
                 </h4>
                 <div className="flex gap-4 flex-wrap">
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">oil_lantern</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">white_monster</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">sword</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">controller</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">duck</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">gun</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">oil_lantern</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">white_monster</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">sword</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">controller</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">duck</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">gun</div>
                 </div>
               </div>
               
@@ -55,26 +55,26 @@ export default function ElementShowcase() {
                   <span className="text-[var(--color-text-secondary)] mr-2">[03]</span> MARKETPLACE = BACKGROUND
                 </h4>
                 <div className="flex gap-4 flex-wrap">
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">athens_market</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">matrix_code</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">epstein_island</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">pump_terminal</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">pony_land</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">uganda</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">athens_market</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">matrix_code</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">epstein_island</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">pump_terminal</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">pony_land</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">uganda</div>
                 </div>
               </div>
               
-              <div className="element-row bg-[var(--color-dark-eyes)]/50 p-4 border-l-4 border-[var(--color-dark-eyes)]"> {/* Dark Brown border */}
+              <div className="element-row bg-[var(--color-dark-eyes)]/50 p-4 border-l-4 border-[var(--color-black-opacity-10)]"> {/* Subtle black border */}
                 <h4 className="font-mono text-lg text-[var(--color-text-secondary)] mb-2 flex items-center"> {/* Warm Gray text for Dogs (Dark Brown was too dark for text) */}
                   <span className="text-[var(--color-text-secondary)] mr-2">[04]</span> DOGS = AUDIENCE
                 </h4>
                 <div className="flex gap-4 flex-wrap">
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">stray_dogs</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">pepe</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">wojak</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">npc</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">cat</div>
-                  <div className="element-tag bg-[var(--color-dark-eyes)] px-3 py-1 rounded-full text-xs text-[var(--color-city-bg)]">amogus</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">stray_dogs</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">pepe</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">wojak</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">npc</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">cat</div>
+                  <div className="element-tag bg-[var(--color-ivory)] px-3 py-1 rounded-full text-xs text-[var(--color-black)]">amogus</div>
                 </div>
               </div>
             </div>
@@ -109,7 +109,7 @@ export default function ElementShowcase() {
               </div>
             </div>
             
-            <div className="philosophy-note bg-[var(--color-card-dark-opacity)] backdrop-blur-sm border border-[var(--color-dark-brown-opacity-30)] p-6 rounded-lg"> {/* Dark Brown bg and border */}
+            <div className="philosophy-note bg-[var(--color-ivory-opacity-80)] backdrop-blur-sm border border-[var(--color-black-opacity-10)] p-6 rounded-lg"> {/* Ivory opacity bg, black opacity border */}
               <h3 className="text-[var(--color-text-primary)] font-mono text-xl mb-4 glitch-text">Diogenes.exe</h3>
               
               <p className="text-[var(--color-text-secondary)] italic mb-4">

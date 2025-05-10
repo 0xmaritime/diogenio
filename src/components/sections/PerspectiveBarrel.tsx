@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useScrollLock } from '../../hooks/useScrollLock';
 
 const DioGenioBarrel = () => {
   const [currentView, setCurrentView] = useState(0);
@@ -8,6 +9,10 @@ const DioGenioBarrel = () => {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [currentQuote, setCurrentQuote] = useState("");
   const [quoteVisible, setQuoteVisible] = useState(true);
+  const [isMouseOver, setIsMouseOver] = useState(false);
+  const [scrollLock, setScrollLock] = useState(false); // This will be controlled by onMouseEnter/onMouseLeave
+  const [scrollProgress, setScrollProgress] = useState(0);
+  useScrollLock(scrollLock); // useScrollLock will react to changes in the scrollLock state
   const containerRef = useRef<HTMLDivElement>(null);
   const barrelRef = useRef<HTMLDivElement>(null);
   
@@ -25,6 +30,49 @@ const DioGenioBarrel = () => {
     setCurrentQuote(quotes[0]);
   }, []);
   
+  // Enhanced touch handler
+  const handleTouchStart = (e: TouchEvent) => {
+    if (animating) return;
+    // Prevent default only if the event target is the barrel or its children
+    if (barrelRef.current?.contains(e.target as Node)) {
+      e.preventDefault();
+      e.stopPropagation();
+      // setScrollLock(true); // Scroll lock is now primarily managed by onMouseEnter/Leave
+    }
+  };
+
+  const handleTouchMove = (e: TouchEvent) => {
+    if (animating) return;
+    if (barrelRef.current?.contains(e.target as Node)) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
+  
+  // Enhanced Keyboard navigation for scroll prevention
+  const handleEnhancedKeyDown = (e: KeyboardEvent) => { // Renamed to avoid conflict with existing handleKeyDown if any
+    // Original keyboard navigation for perspective change
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      const newView = currentView === 4 ? 0 : currentView + 1;
+      if (newView !== currentView) {
+        changePerspective(newView);
+      }
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      const newView = currentView === 0 ? 4 : currentView - 1;
+      if (newView !== currentView) {
+        changePerspective(newView);
+      }
+    }
+
+    // Scroll prevention for relevant keys when barrel is focused or mouse is over
+    if (isMouseOver || document.activeElement === barrelRef.current) {
+      if (['Space', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.code)) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }
+  };
+
   // Handle wheel events (scroll) directly on the barrel component
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
     if (animating) return;
@@ -32,6 +80,13 @@ const DioGenioBarrel = () => {
     // Prevent default scrolling behavior
     e.preventDefault();
     e.stopPropagation();
+    // setScrollLock(true); // Scroll lock is now primarily managed by onMouseEnter/Leave
+    
+    // Track scroll progress (optional, if used for visual feedback or other logic)
+    setScrollProgress(prev => {
+      const newProgress = prev + e.deltaY * 0.001; // Adjust sensitivity
+      return Math.max(0, Math.min(1, newProgress));
+    });
     
     // Determine scroll direction
     const scrollingDown = e.deltaY > 0;
@@ -83,27 +138,23 @@ const DioGenioBarrel = () => {
   const changePerspective = (index) => {
     if (index === currentView || animating) return;
     
-    // Start animation
     setAnimating(true);
-    
-    // Fade out quote first
-    setQuoteVisible(false);
-    
-    // Change perspective after quote fades out
+    setQuoteVisible(false); // Start fading out quote
+
+    // Update current view and quote. The CSS transition on barrelRef will handle the visual change.
+    setCurrentView(index); 
+    setCurrentQuote(quotes[index]);
+
+    // Synchronize quote visibility with barrel animation
+    // Assuming barrel animation is around 600ms (from getBarrelStyle)
+    // Fade in quote slightly after barrel starts moving, and ensure animation state is cleared after all transitions
     setTimeout(() => {
-      setCurrentView(index);
-      setCurrentQuote(quotes[index]);
-      
-      // Fade in quote after perspective changes
-      setTimeout(() => {
-        setQuoteVisible(true);
-        
-        // End animation state
-        setTimeout(() => {
-          setAnimating(false);
-        }, 300);
-      }, 300);
-    }, 300);
+      setQuoteVisible(true);
+    }, 150); // Start fading quote in a bit into the barrel animation
+
+    setTimeout(() => {
+      setAnimating(false);
+    }, 600); // Duration of the barrel's transform transition
   };
   
   // Handle mouse movement for barrel interaction
@@ -157,71 +208,59 @@ const DioGenioBarrel = () => {
     }
   };
   
-  // Keyboard navigation
-  const handleKeyDown = (e) => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-      // Loop to the beginning if at the end
-      const newView = currentView === 4 ? 0 : currentView + 1;
-      if (newView !== currentView) {
-        changePerspective(newView);
-      }
-    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-      // Loop to the end if at the beginning
-      const newView = currentView === 0 ? 4 : currentView - 1;
-      if (newView !== currentView) {
-        changePerspective(newView);
-      }
-    }
-  };
-  
+  // Control scrollLock state based on mouse enter/leave for the main interactive area
+  useEffect(() => {
+    setScrollLock(isMouseOver);
+  }, [isMouseOver]);
+
   // Keyboard navigation and wheel events
   useEffect(() => {
-    // Add wheel event listener to the barrel reference
     const barrelElement = barrelRef.current;
-    
+
+    // Specific event listeners for the barrel element
     if (barrelElement) {
-      // Use capture phase to ensure we catch the event before it bubbles
-      barrelElement.addEventListener('wheel', handleNativeWheel, { 
-        passive: false,
-        capture: true 
-      });
+      // Native wheel listener on the barrel itself
+      barrelElement.addEventListener('wheel', handleNativeWheel, { passive: false, capture: true });
+      // Touch listeners on the barrel
+      barrelElement.addEventListener('touchstart', handleTouchStart, { passive: false });
+      barrelElement.addEventListener('touchmove', handleTouchMove, { passive: false });
     }
     
-    // Add keyboard event listeners
+    // Global listeners that might affect dragging or keyboard interaction
     document.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('mouseleave', handleMouseUp);
-    document.addEventListener('keydown', handleKeyDown);
+    // document.addEventListener('mouseleave', handleMouseUp); // This might be too aggressive if mouse leaves window
+    document.addEventListener('keydown', handleEnhancedKeyDown, { capture: true }); 
     
-    // Set initial focus for keyboard navigation
     if (barrelElement) {
-      barrelElement.tabIndex = 0;
+      barrelElement.tabIndex = 0; 
     }
     
     return () => {
-      // Clean up all event listeners
       if (barrelElement) {
-        barrelElement.removeEventListener('wheel', handleNativeWheel, { 
-          capture: true 
-        });
+        barrelElement.removeEventListener('wheel', handleNativeWheel, { capture: true });
+        barrelElement.removeEventListener('touchstart', handleTouchStart);
+        barrelElement.removeEventListener('touchmove', handleTouchMove);
       }
       document.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('mouseleave', handleMouseUp);
-      document.removeEventListener('keydown', handleKeyDown);
+      // document.removeEventListener('mouseleave', handleMouseUp);
+      document.removeEventListener('keydown', handleEnhancedKeyDown, { capture: true });
     };
-  }, [currentView, animating]);
+  }, [currentView, animating, isMouseOver]); // isMouseOver dependency ensures keydown listener context is correct
   
   // Get dynamic transform for barrel based on current view and mouse position
   const getBarrelStyle = () => {
     // Base style with 3D transform
     const style = {
-      transition: dragging ? 'none' : 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
+      // Adjusted cubic-bezier for a slightly smoother start and end, and potentially faster overall feel
+      transition: dragging ? 'none' : 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)', 
       transformOrigin: '50% 50%',
       transform: 'rotateX(0deg) rotateY(0deg)'
     };
     
     // Calculate mouse influence (subtle rotation based on mouse position)
-    const mouseInfluenceX = (mousePosition.x - 0.5) * 15;
-    const mouseInfluenceY = (mousePosition.y - 0.5) * 15;
+    // Reduced multiplier for less exaggerated movement, making it feel more direct
+    const mouseInfluenceX = (mousePosition.x - 0.5) * 10; // Reduced from 15
+    const mouseInfluenceY = (mousePosition.y - 0.5) * 10; // Reduced from 15
     
     // Add perspective-specific transforms plus mouse influence
     switch (currentView) {
@@ -268,17 +307,14 @@ const DioGenioBarrel = () => {
     
     const basePos = basePositions[currentView];
     
-    // Calculate mouse influence on light position
-    const mouseInfluenceX = (mousePosition.x - 0.5) * 25;
-    const mouseInfluenceY = (mousePosition.y - 0.5) * 25;
-    
-    // Parse base positions as percentages
-    const baseTop = parseFloat(basePos.top);
-    const baseLeft = parseFloat(basePos.left);
-    
-    // Apply mouse influence to base positions
-    const top = `${baseTop + mouseInfluenceY}%`;
-    const left = `${baseLeft + mouseInfluenceX}%`;
+    // Calculate mouse influence on light position - make it more direct
+    // The mousePosition.x and mousePosition.y are already normalized (0 to 1)
+    // So, we can use them more directly to set top/left percentages.
+    const lightX = mousePosition.x * 100;
+    const lightY = mousePosition.y * 100;
+        
+    const top = `${lightY}%`;
+    const left = `${lightX}%`;
     
     // Determine light intensity based on view and mouse position
     const intensity = currentView === 4 ? 0.9 : 0.7;
@@ -398,6 +434,8 @@ const DioGenioBarrel = () => {
             }}
             onMouseMove={handleMouseMove}
             onMouseDown={handleMouseDown}
+            onMouseEnter={() => setIsMouseOver(true)}
+            onMouseLeave={() => setIsMouseOver(false)}
             tabIndex={0}
           >
             {/* Enhanced light effects */}

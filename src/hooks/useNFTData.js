@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react';
-import { nftData } from '../data/nftData';
+import { nftCollection } from '../data/nftData'; // Changed import
 
 export function useNFTData() {
-  const [data, setData] = useState([]);
+  const [nfts, setNfts] = useState([]); // Renamed state
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => { // Removed async and await for local data
       try {
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        setData(nftData);
+        // For local data, no need to simulate API delay unless specifically desired for UX testing
+        setNfts(nftCollection); // Use imported nftCollection
         setLoading(false);
       } catch (err) {
-        setError('Failed to fetch NFT data');
+        console.error("Error processing NFT data:", err); // Log the actual error
+        setError('Failed to process NFT data'); // More specific error for local data
         setLoading(false);
       }
     };
@@ -23,7 +23,7 @@ export function useNFTData() {
   }, []);
 
   return {
-    nfts: data,
+    nfts, // Return nfts directly
     loading,
     error
   };

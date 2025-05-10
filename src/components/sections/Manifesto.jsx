@@ -13,11 +13,11 @@ export default function Manifesto() {
           <div className="bg-[var(--color-dark-eyes)] border-2 border-[var(--color-accent-2)] rounded-lg overflow-hidden shadow-[0_0_30px_rgba(41,105,85,0.3)]"> {/* Dark Brown bg, Forest Green border & shadow */}
             {/* Terminal header */}
             <div className="bg-[var(--color-accent-3)] px-4 py-2 border-b border-[var(--color-accent-2)] flex justify-between items-center"> {/* Pale Olive bg, Forest Green border */}
-              <div className="font-mono text-sm text-[var(--color-dark-eyes)]">MANIFESTO.md</div> {/* Dark Brown text on Pale Olive bg */}
+              <div className="font-mono text-sm text-[var(--color-black)]">MANIFESTO.md</div> {/* Black text on Pale Olive bg */}
               <div className="flex gap-2">
-                <div className="w-3 h-3 rounded-full bg-[var(--color-dark-eyes)]/50"></div> {/* Dark Brown dots */}
-                <div className="w-3 h-3 rounded-full bg-[var(--color-dark-eyes)]/50"></div>
-                <div className="w-3 h-3 rounded-full bg-[var(--color-dark-eyes)]/50"></div>
+                <div className="w-3 h-3 rounded-full bg-[var(--color-black)]/50"></div> {/* Black dots with opacity */}
+                <div className="w-3 h-3 rounded-full bg-[var(--color-black)]/50"></div>
+                <div className="w-3 h-3 rounded-full bg-[var(--color-black)]/50"></div>
               </div>
             </div>
             
@@ -27,8 +27,8 @@ export default function Manifesto() {
                 <h2 className="text-[var(--color-accent-3)] text-2xl font-bold"># The DioGenio Manifesto</h2> {/* Pale Olive heading */}
               </div>
               
-              <div className="space-y-4 text-[var(--color-text-secondary)]"> {/* Warm Gray text */}
-                <p className="text-lg text-[var(--color-city-bg)]"> {/* Off-White for subheadings */}
+              <div className="space-y-4 text-[var(--color-text-secondary)]"> {/* Dark Gray text */}
+                <p className="text-lg text-[var(--color-black)]"> {/* Black for subheadings */}
                   ## THESIS
                 </p>
                 
@@ -37,7 +37,7 @@ export default function Manifesto() {
                   sought honesty in a world of pretense, we seek authenticity in a sea of derivative NFTs.
                 </p>
                 
-                <p className="text-lg text-[var(--color-city-bg)]">
+                <p className="text-lg text-[var(--color-black)]">
                   ## THE BARREL PRINCIPLE
                 </p>
                 
@@ -47,7 +47,7 @@ export default function Manifesto() {
                   or virtual—where we find clarity amid the noise of modern existence.
                 </p>
                 
-                <p className="text-lg text-[var(--color-city-bg)]">
+                <p className="text-lg text-[var(--color-black)]">
                   ## THE CANCELLED WILL INHERIT THE EARTH
                 </p>
                 
@@ -57,7 +57,7 @@ export default function Manifesto() {
                   influence culture from the margins—and ultimately outlast their critics.
                 </p>
                 
-                <p className="text-lg text-[var(--color-city-bg)]">
+                <p className="text-lg text-[var(--color-black)]">
                   ## PHILOSOPHICAL SHITPOSTING
                 </p>
                 
@@ -67,7 +67,7 @@ export default function Manifesto() {
                   tradition of provocative truth-telling in digital spaces.
                 </p>
                 
-                <p className="text-lg text-[var(--color-city-bg)]">
+                <p className="text-lg text-[var(--color-black)]">
                   ## THE ALGORITHM OF WISDOM
                 </p>
                 

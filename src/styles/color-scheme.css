@@ -1,32 +1,43 @@
 :root {
-  /* Primary Colors */
-  --color-pink-hair: #488AA2;  /* Teal Blue */
-  --color-blue-eyes: #296955;  /* Forest Green */
-  --color-green-jacket: #CBCB9F; /* Pale Olive */
-  --color-medal-gold: #CBCB9F;  /* Pale Olive */
-  --color-blue-shirt: #488AA2;  /* Teal Blue */
-  --color-dark-eyes: #39322B;  /* Dark Brown */
+  /* Theme Colors - Editorial Style */
+  --color-ivory: #FFFFF0; /* New base background color */
+  --color-black: #000000; /* New primary text color */
+  --color-dark-gray: #333333; /* New secondary text color */
+  
+  /* Primary Colors (can be re-evaluated for editorial style) */
+  --color-pink-hair: #488AA2;  /* Teal Blue - Keep for now */
+  --color-blue-eyes: #296955;  /* Forest Green - Keep for now */
+  --color-green-jacket: #CBCB9F; /* Pale Olive - Keep for now */
+  
+  /* Replacing Dark Brown with Ivory or Black/Dark Gray */
+  --color-dark-eyes: var(--color-ivory);  /* Was Dark Brown, now Ivory for backgrounds */
+  --color-card-dark: var(--color-ivory);  /* Was Dark Brown, now Ivory for card backgrounds */
 
   /* Background Colors */
-  --color-city-bg: #E9E8E6;  /* Off-White */
-  --color-tech-bg: #E9E8E6;  /* Off-White */
-  --color-card-dark: #39322B;  /* Dark Brown */
+  --color-city-bg: var(--color-ivory);  /* Was Off-White, now Ivory */
+  /* --color-tech-bg: #E9E8E6; // Removed earlier */
 
   /* Text Colors */
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #a19a94;  /* Derived from Dark Brown */
-  --color-text-accent: #488AA2;  /* Teal Blue */
+  --color-text-primary: var(--color-black); /* Was white, now black */
+  --color-text-secondary: var(--color-dark-gray); /* Was light brown derivative, now dark gray */
+  --color-text-accent: #488AA2;  /* Teal Blue - Keep for now, or choose a more editorial accent */
 
   /* Accent Colors */
   --color-accent-1: #488AA2;  /* Teal Blue */
   --color-accent-2: #296955;  /* Forest Green */
   --color-accent-3: #CBCB9F;  /* Pale Olive */
 
-  /* Opacity variants that might be useful */
-  --color-tech-bg-opacity: rgba(233, 232, 230, 0.8); /* Off-White with opacity */
-  --color-card-dark-opacity: rgba(57, 50, 43, 0.8); /* Dark Brown with opacity */
-  --color-dark-brown-opacity-30: rgba(57, 50, 43, 0.3); /* Dark Brown with 30% opacity for terminal borders */
-  --color-teal-blue-opacity-30: rgba(72, 138, 162, 0.3); /* Teal Blue with 30% opacity for card borders */
-  --color-dark-brown-opacity-90: rgba(57, 50, 43, 0.9); /* Dark Brown with 90% opacity for header bg */
-  --color-teal-blue-opacity-20: rgba(72, 138, 162, 0.2); /* Teal Blue with 20% opacity for header borders */
+  /* Opacity variants - to be reviewed based on new base colors */
+  --color-ivory-opacity-80: rgba(255, 255, 240, 0.8); 
+  --color-ivory-opacity-30: rgba(255, 255, 240, 0.3);
+  --color-card-dark-opacity: var(--color-ivory-opacity-80); /* Was old dark brown, now ivory based */
+  
+  /* Teal Blue opacity variants (kept from before) */
+  --color-teal-blue-opacity-30: rgba(72, 138, 162, 0.3);
+  --color-teal-blue-opacity-20: rgba(72, 138, 162, 0.2);
+
+  /* Opacity for black (e.g., for borders or subtle backgrounds) */
+  --color-black-opacity-90: rgba(0, 0, 0, 0.9);
+  --color-black-opacity-30: rgba(0, 0, 0, 0.3);
+  --color-black-opacity-10: rgba(0, 0, 0, 0.1);
 }

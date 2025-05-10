@@ -1,28 +1,5 @@
-@import "tailwindcss";
-
 /* Keep the existing animations but use the variables from color-scheme.css */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes glow {
-  0% { opacity: 0.4; } /* Reduced intensity */
-  100% { opacity: 0.6; } /* Reduced intensity */
-}
-
 /* Additional theme utilities can be added here */
-.text-gradient-primary {
-  background: linear-gradient(to right, var(--color-accent-1), var(--color-accent-2)); /* Teal Blue to Forest Green */
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.border-glow {
-  box-shadow: 0 0 5px rgba(57, 50, 43, 0.5); /* Dark Brown derived shadow, reduced intensity */
-}
-
 /* New DioGenio animations and effects */
 /* Matrix code digital rain effect */
 .matrix-code {
@@ -42,7 +19,7 @@
 .typewriter-text {
   overflow: hidden;
   white-space: nowrap;
-  border-right: 3px solid var(--color-medal-gold);
+  border-right: 3px solid var(--color-green-jacket);
   animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
 }
 
@@ -53,7 +30,7 @@
 
 @keyframes blink-caret {
   from, to { border-color: transparent }
-  50% { border-color: var(--color-medal-gold) }
+  50% { border-color: var(--color-green-jacket) }
 }
 
 /* Typing delays */
@@ -296,6 +273,6 @@
 
 /* Barrel pattern */
 .barrel-pattern {
-  background-image: radial-gradient(circle at center, var(--color-medal-gold) 1px, transparent 1px);
+  background-image: radial-gradient(circle at center, var(--color-green-jacket) 1px, transparent 1px);
   background-size: 30px 30px;
 }

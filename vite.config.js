@@ -5,13 +5,6 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss({
-      applyAutoprefixer: true,
-      // Using modern CSS features
-      future: {
-        hoverOnlyWhenSupported: true,
-        disableColorOpacityUtilitiesByDefault: true,
-      }
-    })
+    tailwindcss() // Simplified for v4, assuming defaults are fine
   ],
 })

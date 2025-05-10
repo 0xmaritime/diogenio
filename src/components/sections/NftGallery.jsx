@@ -18,7 +18,7 @@ export default function NftGallery() {
       <div className="absolute inset-0 matrix-code opacity-5 pointer-events-none"></div>
       
       <div className="container mx-auto px-4 mb-16 text-center">
-        <h2 className="inline-block relative font-display text-4xl md:text-5xl font-black glitch-text-subtle text-[var(--color-dark-eyes)]"
+        <h2 className="inline-block relative font-display text-4xl md:text-5xl font-black glitch-text-subtle text-[var(--color-black)]"
             data-text="THE COLLECTION">
           THE COLLECTION
         </h2>
@@ -31,13 +31,13 @@ export default function NftGallery() {
             <div className="controls absolute top-1/2 left-0 right-0 -translate-y-1/2 z-50 flex justify-between pointer-events-none">
               <button 
                 onClick={() => navigate('prev')}
-                className="pointer-events-auto bg-white border-4 border-[var(--color-dark-eyes)] px-6 py-4 cursor-pointer font-mono text-2xl transition-all hover:scale-110 rounded-lg hover:bg-[var(--color-accent-1)] hover:text-white shadow-lg md:-translate-x-40 -translate-x-16"
+                className="pointer-events-auto bg-white border-4 border-[var(--color-black-opacity-30)] px-6 py-4 cursor-pointer font-mono text-2xl transition-all hover:scale-110 rounded-lg hover:bg-[var(--color-accent-1)] hover:text-white shadow-lg md:-translate-x-40 -translate-x-16"
               >
                 ←
               </button>
               <button 
                 onClick={() => navigate('next')}
-                className="pointer-events-auto bg-white border-4 border-[var(--color-dark-eyes)] px-6 py-4 cursor-pointer font-mono text-2xl transition-all hover:scale-110 rounded-lg hover:bg-[var(--color-accent-1)] hover:text-white shadow-lg md:translate-x-40 translate-x-16"
+                className="pointer-events-auto bg-white border-4 border-[var(--color-black-opacity-30)] px-6 py-4 cursor-pointer font-mono text-2xl transition-all hover:scale-110 rounded-lg hover:bg-[var(--color-accent-1)] hover:text-white shadow-lg md:translate-x-40 translate-x-16"
               >
                 →
               </button>
@@ -59,17 +59,17 @@ export default function NftGallery() {
                         position === 'next' ? 'z-20 opacity-80 scale-90 rotate-6 translate-x-[20%]' : 
                         'opacity-0 scale-75'}`}
                   >
-                    <div className="bg-white border-4 border-[var(--color-dark-eyes)] rounded-2xl shadow-xl w-[350px] h-[500px] p-6 overflow-hidden">
+                    <div className="bg-white border-4 border-[var(--color-black-opacity-30)] rounded-2xl shadow-xl w-[350px] h-[500px] p-6 overflow-hidden">
                       <div className="card-header flex justify-between items-center mb-4 min-h-[2.5rem]">
                         <div className="name font-mono text-lg font-bold whitespace-nowrap overflow-hidden text-ellipsis max-w-[180px]">
                           {nft.name}
                         </div>
-                        <div className="type bg-[var(--color-accent-1)] border-2 border-[var(--color-dark-eyes)] rounded-lg px-2 py-1 text-xs font-bold uppercase">
+                        <div className="type bg-[var(--color-accent-1)] border-2 border-[var(--color-black-opacity-30)] rounded-lg px-2 py-1 text-xs font-bold uppercase">
                           {nft.attributes.rarity}
                         </div>
                       </div>
                       
-                      <div className="image-container w-full h-48 mb-6 border-3 border-[var(--color-dark-eyes)] rounded-lg overflow-hidden bg-gray-100">
+                      <div className="image-container w-full h-48 mb-6 border-3 border-[var(--color-black-opacity-30)] rounded-lg overflow-hidden bg-gray-100">
                         <img src={nft.image} alt={nft.name} className="w-full h-full object-cover" />
                       </div>
                       
@@ -85,7 +85,7 @@ export default function NftGallery() {
                         </div>
                       </div>
                       
-                      <div className="footer text-center text-sm border-t-2 border-[var(--color-dark-eyes)] pt-4 font-mono">
+                      <div className="footer text-center text-sm border-t-2 border-[var(--color-black-opacity-30)] pt-4 font-mono">
                         DioGenio ID: <span>#{nft.id}</span>
                       </div>
                     </div>
@@ -101,17 +101,16 @@ export default function NftGallery() {
         </div>
         
         <div className="text-center mt-16">
-          <a 
-            href="/gallery" 
+          <div 
             className="inline-block bg-transparent border-2 border-[var(--color-accent-1)]
-                       text-[var(--color-dark-eyes)] px-8 py-3 rounded-lg
+                       text-[var(--color-accent-1)] px-8 py-3 rounded-lg
                        hover:bg-[var(--color-accent-1)]/20 transition-all
-                       font-mono relative overflow-hidden group"
+                       font-mono relative overflow-hidden group cursor-pointer" // Added cursor-pointer
           >
             <span className="relative z-10">VIEW ALL DIOGENIOS</span>
             <span className="absolute inset-0 bg-gradient-to-r from-[var(--color-accent-1)] to-[var(--color-accent-2)] opacity-0 
                              group-hover:opacity-30 transition-opacity"></span>
-          </a>
+          </div>
         </div>
       </div>
     </section>

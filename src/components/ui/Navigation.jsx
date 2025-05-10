@@ -1,11 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/gallery', label: 'Collection' },
-  { href: '/elements', label: 'Architecture' },
-  { href: '/lore', label: 'Mythology' },
-];
+const navItems = [];
 
 export default function Navigation({ variant = 'desktop' }) {
   const isMobile = variant === 'mobile';
