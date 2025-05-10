@@ -30,9 +30,22 @@ export default {
         'accent-2': 'var(--color-accent-2)',
         'accent-3': 'var(--color-accent-3)',
       },
+      perspective: {
+        '800': '800px',
+        '1000': '1000px',
+      },
+      transformStyle: {
+        '3d': 'preserve-3d',
+      },
+      backgroundImage: {
+        'radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
       animation: {
         float: 'float 6s ease-in-out infinite',
         glow: 'glow 2s ease-in-out infinite alternate',
+        'pulse': 'pulse 10s ease-in-out infinite',
+        'bounce': 'bounce 2s infinite',
+        'fade-in': 'fadeIn 0.5s ease-out',
       },
       keyframes: {
         float: {
@@ -42,6 +55,14 @@ export default {
         glow: {
           '0%': { opacity: '0.7' },
           '100%': { opacity: '1' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        pulse: {
+          '0%, 100%': { opacity: '0.03' },
+          '50%': { opacity: '0.05' },
         },
       },
     },
