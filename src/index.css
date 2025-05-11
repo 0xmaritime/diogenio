@@ -6,10 +6,39 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* Typography */
-  --font-editorial-serif: 'Times New Roman', Times, serif;
-  --font-system: var(--font-editorial-serif); /* Default to editorial serif */
+  /* Typography Families */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Minion Pro', Georgia, serif;
+  --font-mono: 'Helvetica Neue', Arial, sans-serif;
   
+  /* Type Scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+  
+  /* Line Heights */
+  --leading-tight: 1.2;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 1.75;
+  
+  /* Letter Spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+
   /* Spacing */
   --spacing-base: 0.25rem;
   --spacing-grid: 8px;
@@ -21,8 +50,16 @@
 
 @layer base {
   body {
-    @apply bg-[var(--color-city-bg)] text-[var(--color-black)] min-h-screen; /* Ivory bg, Black text */
-    font-family: var(--font-system); /* Explicitly set serif font for the body */
+    @apply bg-[var(--color-ivory)] text-[var(--color-text-primary)] min-h-screen; /* Updated bg and text color */
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: var(--tracking-tight);
   }
 
   #root {
@@ -34,6 +71,26 @@
 @layer components {
   .gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#d4d4d8];
+  }
+
+  .btn-primary {
+    @apply bg-[var(--color-black)] text-[var(--color-ivory)] px-8 py-3 text-sm tracking-wide uppercase hover:bg-[var(--color-midnight)] transition-all duration-300;
+  }
+
+  .btn-secondary {
+    @apply border border-[var(--color-black)] text-[var(--color-black)] px-8 py-3 text-sm tracking-wide uppercase hover:bg-[var(--color-black)] hover:text-[var(--color-ivory)] transition-all duration-300;
+  }
+
+  .card-editorial {
+    @apply bg-[var(--color-ivory)] rounded-none overflow-hidden transition-all duration-300 hover:shadow-lg;
+  }
+
+  .card-image {
+    @apply aspect-[4/5] overflow-hidden;
+  }
+
+  .card-content {
+    @apply p-6 border-t border-[var(--color-border-light)];
   }
 }
 

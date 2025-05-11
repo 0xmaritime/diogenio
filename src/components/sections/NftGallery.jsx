@@ -14,12 +14,10 @@ export default function NftGallery() {
   };
 
   return (
-    <section className="py-24 relative bg-[var(--color-city-bg)] overflow-hidden">
-      <div className="absolute inset-0 matrix-code opacity-5 pointer-events-none"></div>
-      
+    <section className="py-24 relative bg-[var(--color-gallery)] overflow-hidden">
+      {/* Removed matrix-code div */}
       <div className="container mx-auto px-4 mb-16 text-center">
-        <h2 className="inline-block relative font-display text-4xl md:text-5xl font-black glitch-text-subtle text-[var(--color-black)]"
-            data-text="THE COLLECTION">
+        <h2 className="font-display text-4xl md:text-5xl font-bold text-[var(--color-text-primary)]">
           THE COLLECTION
         </h2>
         <div className="w-24 h-1 bg-gradient-to-r from-[var(--color-accent-1)] to-[var(--color-accent-2)] mx-auto mt-4"></div>
@@ -51,42 +49,26 @@ export default function NftGallery() {
                   index === (currentIndex + 1) % total ? 'next' : 'hidden';
                 
                 return (
-                  <div 
+                  <div
                     key={nft.id}
                     className={`pokemon-card absolute top-0 left-1/2 transform -translate-x-1/2 transition-all duration-500 ease-in-out
-                      ${position === 'current' ? 'z-30 opacity-100 scale-100' : 
-                        position === 'prev' ? 'z-20 opacity-80 scale-90 -rotate-6 -translate-x-[120%]' : 
-                        position === 'next' ? 'z-20 opacity-80 scale-90 rotate-6 translate-x-[20%]' : 
+                      ${position === 'current' ? 'z-30 opacity-100 scale-100' :
+                        position === 'prev' ? 'z-20 opacity-80 scale-90 -rotate-6 -translate-x-[120%]' :
+                        position === 'next' ? 'z-20 opacity-80 scale-90 rotate-6 translate-x-[20%]' :
                         'opacity-0 scale-75'}`}
                   >
-                    <div className="bg-white border-4 border-[var(--color-black-opacity-30)] rounded-2xl shadow-xl w-[350px] h-[500px] p-6 overflow-hidden">
-                      <div className="card-header flex justify-between items-center mb-4 min-h-[2.5rem]">
-                        <div className="name font-mono text-lg font-bold whitespace-nowrap overflow-hidden text-ellipsis max-w-[180px]">
-                          {nft.name}
-                        </div>
-                        <div className="type bg-[var(--color-accent-1)] border-2 border-[var(--color-black-opacity-30)] rounded-lg px-2 py-1 text-xs font-bold uppercase">
-                          {nft.attributes.rarity}
-                        </div>
+                    {/* New editorial card design */}
+                    <div className="relative group overflow-hidden bg-[var(--color-ivory)] rounded-none w-[350px]">
+                      <div className="aspect-[4/5] overflow-hidden">
+                        <img
+                          src={nft.image}
+                          alt={nft.name}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
                       </div>
-                      
-                      <div className="image-container w-full h-48 mb-6 border-3 border-[var(--color-black-opacity-30)] rounded-lg overflow-hidden bg-gray-100">
-                        <img src={nft.image} alt={nft.name} className="w-full h-full object-cover" />
-                      </div>
-                      
-                      <div className="stats mb-6">
-                        <div className="hp font-mono mb-3">Wisdom: {nft.attributes.wisdom}</div>
-                        <div className="attacks mb-3">
-                          <strong className="font-mono">Philosophy:</strong>
-                          <ul className="mt-2">
-                            <li className="bg-gray-100 border-2 border-gray-300 rounded-md px-3 py-2 mb-2 font-mono">
-                              {nft.attributes.philosophy}
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      
-                      <div className="footer text-center text-sm border-t-2 border-[var(--color-black-opacity-30)] pt-4 font-mono">
-                        DioGenio ID: <span>#{nft.id}</span>
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-6">
+                        <h3 className="font-display text-xl text-white mb-1">{nft.name}</h3>
+                        <p className="text-white/70 text-sm">{nft.attributes.rarity}</p>
                       </div>
                     </div>
                   </div>

@@ -5,36 +5,15 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    fontFamily: { // Moved out of extend
-      sans: ['Times New Roman', 'Times', 'serif'],
-      serif: ['Times New Roman', 'Times', 'serif'],
-      mono: ['Times New Roman', 'Times', 'serif'],
+    fontFamily: {
+      display: ['Playfair Display', 'Georgia', 'serif'],
+      body: ['Minion Pro', 'Georgia', 'serif'],
+      mono: ['Helvetica Neue', 'Arial', 'sans-serif'],
     },
     extend: {
-      colors: {
-        // Primary Colors
-        'pink-hair': 'var(--color-pink-hair)',
-        'blue-eyes': 'var(--color-blue-eyes)',
-        'green-jacket': 'var(--color-green-jacket)',
-        'medal-gold': 'var(--color-green-jacket)', // Changed from --color-medal-gold
-        'blue-shirt': 'var(--color-pink-hair)',   // Changed from --color-blue-shirt
-        'dark-eyes': 'var(--color-dark-eyes)',
-
-        // Background Colors
-        'city-bg': 'var(--color-city-bg)',
-        'tech-bg': 'var(--color-city-bg)',       // Changed from --color-tech-bg
-        'card-dark': 'var(--color-card-dark)',
-
-        // Text Colors
-        'text-primary': 'var(--color-text-primary)',
-        'text-secondary': 'var(--color-text-secondary)',
-        'text-accent': 'var(--color-text-accent)',
-
-        // Accent Colors
-        'accent-1': 'var(--color-accent-1)',
-        'accent-2': 'var(--color-accent-2)',
-        'accent-3': 'var(--color-accent-3)',
-      },
+      // Colors are now managed via CSS variables in src/styles/color-scheme.css
+      // and src/index.css. They can be used directly in Tailwind classes
+      // e.g., bg-[var(--color-ivory)], text-[var(--color-text-primary)]
       perspective: {
         '800': '800px',
         '1000': '1000px',

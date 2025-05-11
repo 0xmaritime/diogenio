@@ -1,43 +1,28 @@
 :root {
-  /* Theme Colors - Editorial Style */
-  --color-ivory: #FFFFF0; /* New base background color */
-  --color-black: #000000; /* New primary text color */
-  --color-dark-gray: #333333; /* New secondary text color */
+  /* Primary Editorial Palette */
+  --color-ivory: #FFFFF8; /* Warm white, not pure white */
+  --color-black: #111111; /* Rich black for text */
+  --color-charcoal: #2A2A2A; /* For secondary text */
+  --color-warm-gray: #5A5A5A; /* For tertiary elements */
   
-  /* Primary Colors (can be re-evaluated for editorial style) */
-  --color-pink-hair: #488AA2;  /* Teal Blue - Keep for now */
-  --color-blue-eyes: #296955;  /* Forest Green - Keep for now */
-  --color-green-jacket: #CBCB9F; /* Pale Olive - Keep for now */
+  /* Accent Colors - Subtle & Sophisticated */
+  --color-sage: #8B9B8A; /* Muted sage green */
+  --color-gold: #C9A961; /* Editorial gold accent */
+  --color-midnight: #1A1F36; /* Deep blue-black */
   
-  /* Replacing Dark Brown with Ivory or Black/Dark Gray */
-  --color-dark-eyes: var(--color-ivory);  /* Was Dark Brown, now Ivory for backgrounds */
-  --color-card-dark: var(--color-ivory);  /* Was Dark Brown, now Ivory for card backgrounds */
-
-  /* Background Colors */
-  --color-city-bg: var(--color-ivory);  /* Was Off-White, now Ivory */
-  /* --color-tech-bg: #E9E8E6; // Removed earlier */
-
+  /* Background Variations */
+  --color-paper: #FAFAF9; /* Slightly warmer than white */
+  --color-gallery: #F8F7F6; /* Gallery background */
+  --color-section: #F5F4F2; /* Section backgrounds */
+  
+  /* Border Colors */
+  --color-border-light: #E5E5E5;
+  --color-border-medium: #D1D1D1;
+  --color-border-dark: #8A8A8A;
+  
   /* Text Colors */
-  --color-text-primary: var(--color-black); /* Was white, now black */
-  --color-text-secondary: var(--color-dark-gray); /* Was light brown derivative, now dark gray */
-  --color-text-accent: #488AA2;  /* Teal Blue - Keep for now, or choose a more editorial accent */
-
-  /* Accent Colors */
-  --color-accent-1: #488AA2;  /* Teal Blue */
-  --color-accent-2: #296955;  /* Forest Green */
-  --color-accent-3: #CBCB9F;  /* Pale Olive */
-
-  /* Opacity variants - to be reviewed based on new base colors */
-  --color-ivory-opacity-80: rgba(255, 255, 240, 0.8); 
-  --color-ivory-opacity-30: rgba(255, 255, 240, 0.3);
-  --color-card-dark-opacity: var(--color-ivory-opacity-80); /* Was old dark brown, now ivory based */
-  
-  /* Teal Blue opacity variants (kept from before) */
-  --color-teal-blue-opacity-30: rgba(72, 138, 162, 0.3);
-  --color-teal-blue-opacity-20: rgba(72, 138, 162, 0.2);
-
-  /* Opacity for black (e.g., for borders or subtle backgrounds) */
-  --color-black-opacity-90: rgba(0, 0, 0, 0.9);
-  --color-black-opacity-30: rgba(0, 0, 0, 0.3);
-  --color-black-opacity-10: rgba(0, 0, 0, 0.1);
+  --color-text-primary: var(--color-black);
+  --color-text-secondary: var(--color-charcoal);
+  --color-text-tertiary: var(--color-warm-gray);
+  --color-text-accent: var(--color-gold);
 }

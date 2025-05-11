@@ -6,23 +6,23 @@ const CONTRACT_ADDRESS = '0x...'; // Replace with actual contract address
 
 export function useNFTInteraction() {
   const { isConnected, address } = useWallet();
-  const [isMinting, setIsMinting] = useState(false);
+  const [isAcquiring, setIsAcquiring] = useState(false);
   const [error, setError] = useState(null);
 
-  const mint = async (tokenId) => {
+  const acquire = async (tokenId) => {
     if (!isConnected) {
       setError('Please connect your wallet first');
       return;
     }
 
-    setIsMinting(true);
+    setIsAcquiring(true);
     setError(null);
 
     try {
       const { hash } = await writeContract({
         address: CONTRACT_ADDRESS,
         abi: [], // Add contract ABI here
-        functionName: 'mint',
+        functionName: 'acquire', // Changed from 'mint'
         args: [tokenId],
       });
 
@@ -35,17 +35,17 @@ export function useNFTInteraction() {
       } else if (err && typeof err === 'object' && typeof err.message === 'string') {
         setError(err.message);
       } else {
-        setError('An unknown error occurred during minting.');
+        setError('An unknown error occurred during acquiring.'); // Changed from 'minting'
       }
       return null;
     } finally {
-      setIsMinting(false);
+      setIsAcquiring(false);
     }
   };
 
   return {
-    mint,
-    isMinting,
+    acquire, // Changed from 'mint'
+    isAcquiring, // Changed from 'isMinting'
     error,
     isConnected,
     address

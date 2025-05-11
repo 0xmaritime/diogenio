@@ -11,6 +11,7 @@ const DioGenioBarrel = () => {
   const [quoteVisible, setQuoteVisible] = useState(true);
   const [isMouseOver, setIsMouseOver] = useState(false);
   const [scrollLock, setScrollLock] = useState(false); // This will be controlled by onMouseEnter/onMouseLeave
+  const [allowPageScrollOverride, setAllowPageScrollOverride] = useState(false); // New state for page scroll override
   const [scrollProgress, setScrollProgress] = useState(0);
   useScrollLock(scrollLock); // useScrollLock will react to changes in the scrollLock state
   const containerRef = useRef<HTMLDivElement>(null);
@@ -76,32 +77,34 @@ const DioGenioBarrel = () => {
   // Handle wheel events (scroll) directly on the barrel component
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
     if (animating) return;
-    
-    // Prevent default scrolling behavior
+
+    const scrollingDown = e.deltaY > 0;
+
+    if (scrollingDown && currentView === 4) {
+      setAllowPageScrollOverride(true);
+      // Do not preventDefault or stopPropagation to allow page scroll
+      // Do not changePerspective
+      return; 
+    }
+
+    // If not scrolling down at the last view, or scrolling up, prevent page scroll and handle perspective change.
     e.preventDefault();
     e.stopPropagation();
-    // setScrollLock(true); // Scroll lock is now primarily managed by onMouseEnter/Leave
-    
-    // Track scroll progress (optional, if used for visual feedback or other logic)
+    setAllowPageScrollOverride(false); // Ensure barrel regains scroll control
+
     setScrollProgress(prev => {
       const newProgress = prev + e.deltaY * 0.001; // Adjust sensitivity
       return Math.max(0, Math.min(1, newProgress));
     });
-    
-    // Determine scroll direction
-    const scrollingDown = e.deltaY > 0;
-    
-    // Calculate next perspective with looping
+
     let newIndex;
     if (scrollingDown) {
-      // If scrolling down at the end, loop to the beginning
-      newIndex = currentView === 4 ? 0 : currentView + 1;
+      newIndex = currentView + 1; // currentView will be < 4 here
     } else {
       // If scrolling up at the beginning, loop to the end
       newIndex = currentView === 0 ? 4 : currentView - 1;
     }
-    
-    // Only change if it's a new perspective
+
     if (newIndex !== currentView) {
       changePerspective(newIndex);
     }
@@ -110,25 +113,29 @@ const DioGenioBarrel = () => {
   // Handle native wheel events
   const handleNativeWheel = (e: WheelEvent) => {
     if (animating) return;
-    
-    // Prevent default scrolling behavior
+
+    const scrollingDown = e.deltaY > 0;
+
+    if (scrollingDown && currentView === 4) {
+      setAllowPageScrollOverride(true);
+      // Do not preventDefault or stopPropagation to allow page scroll
+      // Do not changePerspective
+      return;
+    }
+
+    // If not scrolling down at the last view, or scrolling up, prevent page scroll and handle perspective change.
     e.preventDefault();
     e.stopPropagation();
+    setAllowPageScrollOverride(false); // Ensure barrel regains scroll control
     
-    // Determine scroll direction
-    const scrollingDown = e.deltaY > 0;
-    
-    // Calculate next perspective with looping
     let newIndex;
     if (scrollingDown) {
-      // If scrolling down at the end, loop to the beginning
-      newIndex = currentView === 4 ? 0 : currentView + 1;
+      newIndex = currentView + 1; // currentView will be < 4 here
     } else {
       // If scrolling up at the beginning, loop to the end
       newIndex = currentView === 0 ? 4 : currentView - 1;
     }
     
-    // Only change if it's a new perspective
     if (newIndex !== currentView) {
       changePerspective(newIndex);
     }
@@ -208,10 +215,14 @@ const DioGenioBarrel = () => {
     }
   };
   
-  // Control scrollLock state based on mouse enter/leave for the main interactive area
+  // Control scrollLock state based on mouse enter/leave and override for the main interactive area
   useEffect(() => {
-    setScrollLock(isMouseOver);
-  }, [isMouseOver]);
+    if (allowPageScrollOverride) {
+      setScrollLock(false); // Force scrollLock off if override is active
+    } else {
+      setScrollLock(isMouseOver); // Otherwise, base it on mouse presence
+    }
+  }, [isMouseOver, allowPageScrollOverride, setScrollLock]);
 
   // Keyboard navigation and wheel events
   useEffect(() => {
@@ -254,7 +265,8 @@ const DioGenioBarrel = () => {
       // Adjusted cubic-bezier for a slightly smoother start and end, and potentially faster overall feel
       transition: dragging ? 'none' : 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)', 
       transformOrigin: '50% 50%',
-      transform: 'rotateX(0deg) rotateY(0deg)'
+      transform: 'rotateX(0deg) rotateY(0deg)',
+      willChange: 'transform' as const,
     };
     
     // Calculate mouse influence (subtle rotation based on mouse position)
@@ -293,89 +305,138 @@ const DioGenioBarrel = () => {
         return style;
     }
   };
-  
-  // Enhanced light effect based on mouse position and current view
+
+  // Subtle Atmospheric Light Effect
   const getLightStyle = () => {
-    // Base positions for each view
-    const basePositions = [
-      { top: '40%', left: '35%' }, // Side view
-      { top: '30%', left: '50%' }, // Top view
-      { top: '50%', left: '50%' }, // Interior view
-      { top: '45%', left: '60%' }, // Cutaway view
-      { top: '60%', left: '50%' }  // Portal view
-    ];
-    
-    const basePos = basePositions[currentView];
-    
-    // Calculate mouse influence on light position - make it more direct
-    // The mousePosition.x and mousePosition.y are already normalized (0 to 1)
-    // So, we can use them more directly to set top/left percentages.
-    const lightX = mousePosition.x * 100;
-    const lightY = mousePosition.y * 100;
-        
-    const top = `${lightY}%`;
-    const left = `${lightX}%`;
-    
-    // Determine light intensity based on view and mouse position
-    const intensity = currentView === 4 ? 0.9 : 0.7;
-    const mouseDistance = Math.sqrt(
-      Math.pow(mousePosition.x - 0.5, 2) + 
-      Math.pow(mousePosition.y - 0.5, 2)
-    );
-    
-    // Light gets more intense as mouse moves closer to light source
-    const adjustedIntensity = intensity * (1 - mouseDistance);
-    
-    // Enhanced light effect with multiple layers and colors
-    return {
-      primary: {
-        position: 'absolute' as const,
-        width: '250px',
-        height: '250px',
-        borderRadius: '50%',
-        background: `radial-gradient(circle, rgba(255,248,220,${adjustedIntensity}) 0%, rgba(255,248,220,${adjustedIntensity * 0.4}) 40%, rgba(255,248,220,0) 70%)`,
-        top,
-        left,
-        transform: 'translate(-50%, -50%)',
-        pointerEvents: 'none' as const,
-        transition: dragging ? 'none' : 'all 0.4s ease',
-        zIndex: 1,
-        mixBlendMode: 'screen' as const
-      },
-      secondary: {
-        position: 'absolute' as const,
-        width: '180px',
-        height: '180px',
-        borderRadius: '50%',
-        background: `radial-gradient(circle, rgba(255,230,180,${adjustedIntensity * 0.8}) 0%, rgba(255,230,180,${adjustedIntensity * 0.3}) 50%, rgba(255,230,180,0) 80%)`,
-        top,
-        left,
-        transform: 'translate(-50%, -50%)',
-        pointerEvents: 'none' as const,
-        transition: dragging ? 'none' : 'all 0.4s ease',
-        zIndex: 2,
-        mixBlendMode: 'screen' as const,
-        filter: 'blur(4px)'
-      },
-      core: {
-        position: 'absolute' as const,
-        width: '35px',
-        height: '35px',
-        borderRadius: '50%',
-        background: `radial-gradient(circle, rgba(255,255,255,${adjustedIntensity}) 0%, rgba(255,248,220,${adjustedIntensity * 0.8}) 50%, rgba(255,230,180,0) 100%)`,
-        top,
-        left,
-        transform: 'translate(-50%, -50%)',
-        pointerEvents: 'none' as const,
-        transition: dragging ? 'none' : 'all 0.4s ease',
-        zIndex: 3,
-        boxShadow: `0 0 20px rgba(255,248,220,${adjustedIntensity * 0.7})`,
-        filter: 'blur(2px)'
-      }
+    // Base style for the light
+    const style = {
+      position: 'absolute' as const,
+      borderRadius: '50%',
+      pointerEvents: 'none' as const,
+      transition: 'all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)', // Slower, smoother transition
+      zIndex: 1, // Above background SVG, below Diogenes image and barrel visuals
+      willChange: 'transform, opacity, background, width, height, filter' as const,
     };
+
+    // Calculate a subtle shift based on mouse position, but greatly dampened
+    const mouseInfluenceX = (mousePosition.x - 0.5) * 20; // Reduced influence
+    const mouseInfluenceY = (mousePosition.y - 0.5) * 20; // Reduced influence
+
+    let lightProps = {
+      width: '400px',
+      height: '400px',
+      top: '50%',
+      left: '50%',
+      opacity: 0.1, // Very subtle base opacity
+      background: `radial-gradient(circle, rgba(220, 200, 170, 0.2) 0%, rgba(220, 200, 170, 0) 70%)`, // Soft warm glow
+      transform: `translate(-50%, -50%) translate(${mouseInfluenceX}px, ${mouseInfluenceY}px)`,
+      filter: 'blur(50px)', // Softer blur
+    };
+
+    // Adjust slightly per view for thematic consistency
+    switch (currentView) {
+      case 0: // Side view
+        lightProps.opacity = 0.08;
+        lightProps.transform = `translate(-60%, -60%) translate(${mouseInfluenceX}px, ${mouseInfluenceY}px) scale(1.1)`;
+        break;
+      case 1: // Top view
+        lightProps.top = '40%';
+        lightProps.opacity = 0.07;
+        lightProps.background = `radial-gradient(circle, rgba(200, 210, 220, 0.15) 0%, rgba(200, 210, 220, 0) 70%)`; // Cooler tone
+        lightProps.transform = `translate(-50%, -50%) translate(${mouseInfluenceX}px, ${mouseInfluenceY * 0.5}px) scale(0.9)`;
+        break;
+      case 2: // Interior view
+        lightProps.opacity = 0.12;
+        lightProps.width = '450px';
+        lightProps.height = '450px';
+        lightProps.background = `radial-gradient(circle, rgba(230, 210, 180, 0.25) 0%, rgba(230, 210, 180, 0) 70%)`; // Slightly warmer/brighter
+        lightProps.transform = `translate(-50%, -50%) translate(${mouseInfluenceX * 0.8}px, ${mouseInfluenceY * 0.8}px) scale(1.2)`;
+        break;
+      case 3: // Cutaway view
+        lightProps.left = '40%';
+        lightProps.opacity = 0.09;
+        lightProps.transform = `translate(-50%, -50%) translate(${mouseInfluenceX}px, ${mouseInfluenceY}px) scale(1.0)`;
+        break;
+      case 4: // Portal view
+        lightProps.opacity = 0.15;
+        lightProps.width = '500px';
+        lightProps.height = '500px';
+        lightProps.background = `radial-gradient(circle, rgba(240, 220, 190, 0.3) 0%, rgba(240, 220, 190, 0) 65%)`; // More focused glow for portal
+        lightProps.transform = `translate(-50%, -40%) translate(${mouseInfluenceX * 0.5}px, ${mouseInfluenceY * 0.5}px) scale(1.3)`;
+        lightProps.filter = 'blur(60px)';
+        break;
+    }
+
+    return { ...style, ...lightProps };
   };
   
-  const lightStyle = getLightStyle();
+  // Get dynamic style for Diogenes image based on current view
+  const getDiogenesStyle = () => {
+    const baseStyle = {
+      position: 'absolute' as const,
+      height: 'auto' as const,
+      pointerEvents: 'none' as const,
+      transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)', // Match barrel transition
+      maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)' as const,
+      WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)' as const, // For Safari/Webkit
+      willChange: 'transform, opacity, width' as const,
+    };
+
+    switch (currentView) {
+      case 0: // Side view - subtly behind/around the barrel
+        return {
+          ...baseStyle,
+          width: '70%',
+          bottom: '5%',
+          left: '50%',
+          transform: 'translateX(-50%) translateZ(-80px)', // Further back
+          opacity: 0.15,
+          mixBlendMode: 'overlay' as const,
+        };
+      case 1: // Top view - inside, seen from top
+        return {
+          ...baseStyle,
+          width: '35%',
+          bottom: '25%', // Adjust to appear centered from top-down view
+          left: '50%',
+          transform: 'translateX(-50%) translateY(10%) rotateX(-75deg) translateZ(-5px)', // Oriented for top view
+          opacity: 0.4,
+          mixBlendMode: 'luminosity' as const,
+        };
+      case 2: // Interior view - prominent inside
+        return {
+          ...baseStyle,
+          width: '60%',
+          bottom: '10%',
+          left: '50%',
+          transform: 'translateX(-50%) translateZ(-20px)',
+          opacity: 0.65,
+          mixBlendMode: 'luminosity' as const,
+        };
+      case 3: // Cutaway view - partially visible in cutaway
+        return {
+          ...baseStyle,
+          width: '50%',
+          bottom: '12%',
+          left: '35%', // Positioned to be seen in the cutaway
+          transform: 'translateX(-50%) translateZ(-15px)',
+          opacity: 0.5,
+          mixBlendMode: 'luminosity' as const,
+        };
+      case 4: // Portal view - subtly through the portal
+        return {
+          ...baseStyle,
+          width: '40%',
+          bottom: '5%',
+          left: '50%',
+          transform: 'translateX(-50%) translateZ(20px)', // Slightly in front for portal effect
+          opacity: 0.25,
+          mixBlendMode: 'multiply' as const,
+        };
+      default:
+        return { ...baseStyle, opacity: 0, width: '50%' }; // Default hidden
+    }
+  };
   
   // Get cursor style based on dragging state
   const getCursorStyle = () => {
@@ -408,9 +469,9 @@ const DioGenioBarrel = () => {
       {/* Barrel container */}
       <div 
         style={{
-          height: '600px',
+          height: '500px', // Reduced height
           position: 'relative',
-          marginBottom: '3rem'
+          marginBottom: '1.5rem' // Reduced margin
         }}
       >
         {/* Interactive barrel area */}
@@ -426,7 +487,7 @@ const DioGenioBarrel = () => {
           <div 
             ref={barrelRef}
             style={{
-              height: '500px',
+              height: '400px', // Reduced height
               position: 'relative',
               perspective: '800px',
               cursor: getCursorStyle(),
@@ -438,11 +499,133 @@ const DioGenioBarrel = () => {
             onMouseLeave={() => setIsMouseOver(false)}
             tabIndex={0}
           >
-            {/* Enhanced light effects */}
-            <div style={lightStyle.primary} />
-            <div style={lightStyle.secondary} />
-            <div style={lightStyle.core} />
+            {/* Subtle background elements - More Elaborate and Wider */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              zIndex: 0, 
+              overflow: 'hidden',
+              pointerEvents: 'none',
+            }}>
+              <svg width="100%" height="100%" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMid meet" style={{ opacity: 0.1 }}>
+                {/* ... existing SVG content ... */}
+                {/* Far Left Columns */}
+                <g transform="translate(-200, 0)">
+                  <rect x="100" y="180" width="28" height="270" fill="none" stroke="#777" strokeWidth="1.25" />
+                  <line x1="100" y1="180" x2="128" y2="180" stroke="#777" strokeWidth="1.75" />
+                  <line x1="97" y1="176" x2="131" y2="176" stroke="#777" strokeWidth="1.25" />
+                  <line x1="100" y1="450" x2="128" y2="450" stroke="#777" strokeWidth="1.75" />
+                  <line x1="97" y1="454" x2="131" y2="454" stroke="#777" strokeWidth="1.25" />
+                  <line x1="104" y1="180" x2="104" y2="450" stroke="#777" strokeWidth="0.6" />
+                  <line x1="108" y1="180" x2="108" y2="450" stroke="#777" strokeWidth="0.6" />
+                  <line x1="112" y1="180" x2="112" y2="450" stroke="#777" strokeWidth="0.6" />
+                  <line x1="116" y1="180" x2="116" y2="450" stroke="#777" strokeWidth="0.6" />
+                  <line x1="120" y1="180" x2="120" y2="450" stroke="#777" strokeWidth="0.6" />
+                  <line x1="124" y1="180" x2="124" y2="450" stroke="#777" strokeWidth="0.6" />
+                </g>
+                <g transform="translate(-100, 20)">
+                  <rect x="220" y="200" width="22" height="220" fill="none" stroke="#777" strokeWidth="1" />
+                  <line x1="220" y1="200" x2="242" y2="200" stroke="#777" strokeWidth="1.5" />
+                  <line x1="218" y1="197" x2="244" y2="197" stroke="#777" strokeWidth="1" />
+                  <line x1="220" y1="420" x2="242" y2="420" stroke="#777" strokeWidth="1.5" />
+                  <line x1="218" y1="423" x2="244" y2="423" stroke="#777" strokeWidth="1" />
+                </g>
+
+                {/* Original Left Columns (shifted and adjusted) */}
+                <g transform="translate(50, 0)">
+                  <rect x="100" y="150" width="30" height="300" fill="none" stroke="#777" strokeWidth="1.5" />
+                  <line x1="100" y1="150" x2="130" y2="150" stroke="#777" strokeWidth="2" />
+                  <line x1="95" y1="145" x2="135" y2="145" stroke="#777" strokeWidth="1.5" />
+                  <line x1="100" y1="450" x2="130" y2="450" stroke="#777" strokeWidth="2" />
+                  <line x1="95" y1="455" x2="135" y2="455" stroke="#777" strokeWidth="1.5" />
+                  <line x1="105" y1="150" x2="105" y2="450" stroke="#777" strokeWidth="0.75" />
+                  <line x1="110" y1="150" x2="110" y2="450" stroke="#777" strokeWidth="0.75" />
+                  <line x1="115" y1="150" x2="115" y2="450" stroke="#777" strokeWidth="0.75" />
+                  <line x1="120" y1="150" x2="120" y2="450" stroke="#777" strokeWidth="0.75" />
+                  <line x1="125" y1="150" x2="125" y2="450" stroke="#777" strokeWidth="0.75" />
+                </g>
+                <g transform="translate(120, 0)">
+                  <rect x="280" y="180" width="25" height="240" fill="none" stroke="#777" strokeWidth="1.5" />
+                  <line x1="280" y1="180" x2="305" y2="180" stroke="#777" strokeWidth="2" />
+                  <line x1="275" y1="175" x2="310" y2="175" stroke="#777" strokeWidth="1.5" />
+                  <line x1="280" y1="420" x2="305" y2="420" stroke="#777" strokeWidth="2" />
+                  <line x1="275" y1="425" x2="310" y2="425" stroke="#777" strokeWidth="1.5" />
+                  <line x1="284" y1="180" x2="284" y2="420" stroke="#777" strokeWidth="0.75" />
+                  <line x1="288" y1="180" x2="288" y2="420" stroke="#777" strokeWidth="0.75" />
+                  <line x1="292" y1="180" x2="292" y2="420" stroke="#777" strokeWidth="0.75" />
+                  <line x1="296" y1="180" x2="296" y2="420" stroke="#777" strokeWidth="0.75" />
+                  <line x1="300" y1="180" x2="300" y2="420" stroke="#777" strokeWidth="0.75" />
+                </g>
+
+                {/* Central Distant Archway (adjusted) */}
+                <g transform="translate(200, 0)">
+                  <path d="M400 250 C 450 180, 550 180, 600 250" fill="none" stroke="#888" strokeWidth="1" />
+                  <line x1="400" y1="250" x2="400" y2="420" stroke="#888" strokeWidth="1" />
+                  <line x1="600" y1="250" x2="600" y2="420" stroke="#888" strokeWidth="1" />
+                  {/* Hint of a further arch behind */}
+                  <path d="M450 270 C 480 220, 520 220, 550 270" fill="none" stroke="#888" strokeWidth="0.75" strokeDasharray="3,3" />
+                </g>
+
+                {/* Original Right Columns (shifted and adjusted) */}
+                <g transform="translate(300, 0)">
+                  <rect x="700" y="180" width="25" height="240" fill="none" stroke="#777" strokeWidth="1.5" />
+                  <line x1="700" y1="180" x2="725" y2="180" stroke="#777" strokeWidth="2" />
+                  <line x1="695" y1="175" x2="730" y2="175" stroke="#777" strokeWidth="1.5" />
+                  <line x1="700" y1="420" x2="725" y2="420" stroke="#777" strokeWidth="2" />
+                  <line x1="695" y1="425" x2="730" y2="425" stroke="#777" strokeWidth="1.5" />
+                  <line x1="704" y1="180" x2="704" y2="420" stroke="#777" strokeWidth="0.75" />
+                  <line x1="708" y1="180" x2="708" y2="420" stroke="#777" strokeWidth="0.75" />
+                  <line x1="712" y1="180" x2="712" y2="420" stroke="#777" strokeWidth="0.75" />
+                  <line x1="716" y1="180" x2="716" y2="420" stroke="#777" strokeWidth="0.75" />
+                  <line x1="720" y1="180" x2="720" y2="420" stroke="#777" strokeWidth="0.75" />
+                </g>
+                <g transform="translate(350, 0)">
+                  <rect x="870" y="150" width="30" height="300" fill="none" stroke="#777" strokeWidth="1.5" />
+                  <line x1="870" y1="150" x2="900" y2="150" stroke="#777" strokeWidth="2" />
+                  <line x1="865" y1="145" x2="905" y2="145" stroke="#777" strokeWidth="1.5" />
+                  <line x1="870" y1="450" x2="900" y2="450" stroke="#777" strokeWidth="2" />
+                  <line x1="865" y1="455" x2="905" y2="455" stroke="#777" strokeWidth="1.5" />
+                  <line x1="875" y1="150" x2="875" y2="450" stroke="#777" strokeWidth="0.75" />
+                  <line x1="880" y1="150" x2="880" y2="450" stroke="#777" strokeWidth="0.75" />
+                  <line x1="885" y1="150" x2="885" y2="450" stroke="#777" strokeWidth="0.75" />
+                  <line x1="890" y1="150" x2="890" y2="450" stroke="#777" strokeWidth="0.75" />
+                  <line x1="895" y1="150" x2="895" y2="450" stroke="#777" strokeWidth="0.75" />
+                </g>
+
+                {/* Far Right Columns */}
+                <g transform="translate(500, 20)">
+                  <rect x="980" y="200" width="22" height="220" fill="none" stroke="#777" strokeWidth="1" />
+                  <line x1="980" y1="200" x2="1002" y2="200" stroke="#777" strokeWidth="1.5" />
+                  <line x1="978" y1="197" x2="1004" y2="197" stroke="#777" strokeWidth="1" />
+                  <line x1="980" y1="420" x2="1002" y2="420" stroke="#777" strokeWidth="1.5" />
+                  <line x1="978" y1="423" x2="1004" y2="423" stroke="#777" strokeWidth="1" />
+                </g>
+                <g transform="translate(600, 0)">
+                  <rect x="1050" y="180" width="28" height="270" fill="none" stroke="#777" strokeWidth="1.25" />
+                  <line x1="1050" y1="180" x2="1078" y2="180" stroke="#777" strokeWidth="1.75" />
+                  <line x1="1047" y1="176" x2="1081" y2="176" stroke="#777" strokeWidth="1.25" />
+                  <line x1="1050" y1="450" x2="1078" y2="450" stroke="#777" strokeWidth="1.75" />
+                  <line x1="1047" y1="454" x2="1081" y2="454" stroke="#777" strokeWidth="1.25" />
+                  <line x1="1054" y1="180" x2="1054" y2="450" stroke="#777" strokeWidth="0.6" />
+                  <line x1="1058" y1="180" x2="1058" y2="450" stroke="#777" strokeWidth="0.6" />
+                  <line x1="1062" y1="180" x2="1062" y2="450" stroke="#777" strokeWidth="0.6" />
+                  <line x1="1066" y1="180" x2="1066" y2="450" stroke="#777" strokeWidth="0.6" />
+                  <line x1="1070" y1="180" x2="1070" y2="450" stroke="#777" strokeWidth="0.6" />
+                  <line x1="1074" y1="180" x2="1074" y2="450" stroke="#777" strokeWidth="0.6" />
+                </g>
+                
+                {/* Faint horizon line / distant low wall */}
+                <line x1="0" y1="460" x2="1600" y2="460" stroke="#888" strokeWidth="0.75" strokeDasharray="5,5" />
+                <line x1="0" y1="470" x2="1600" y2="470" stroke="#888" strokeWidth="0.5" strokeDasharray="2,3" />
+              </svg>
+            </div>
             
+            {/* Subtle Atmospheric Light */}
+            <div style={getLightStyle()} />
+
             {/* 3D Barrel */}
             <div style={{
               position: 'absolute',
@@ -464,6 +647,13 @@ const DioGenioBarrel = () => {
                 transformStyle: 'preserve-3d',
                 ...getBarrelStyle()
               }}>
+                {/* Diogenes Image - Always rendered, style changes per view */}
+                <img 
+                  src="/images/diogenes transparent bg.png" 
+                  alt="Diogenes" 
+                  style={getDiogenesStyle()}
+                />
+
                 {/* Barrel visualization */}
                 {currentView === 0 && (
                   <div className="side-view" style={{
@@ -820,10 +1010,39 @@ const DioGenioBarrel = () => {
         </div>
       </div>
       
+      {/* State Indicator Dots */}
+      <div style={{
+        textAlign: 'center',
+        marginBottom: '1rem', // Reduced margin
+        marginTop: '0.5rem', // Reduced margin
+      }}>
+        {quotes.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => changePerspective(index)}
+            style={{
+              height: '10px',
+              width: '10px',
+              borderRadius: '50%',
+              backgroundColor: currentView === index ? 'rgba(0, 0, 0, 0.8)' : 'rgba(0, 0, 0, 0.2)',
+              border: 'none',
+              margin: '0 5px',
+              padding: 0,
+              cursor: 'pointer',
+              transition: 'background-color 0.3s ease, transform 0.2s ease',
+              outline: 'none',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.2)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            aria-label={`Go to perspective ${index + 1}`}
+          />
+        ))}
+      </div>
+
       {/* Quote with smooth transitions */}
       <div style={{
         textAlign: 'center',
-        marginBottom: '3rem',
+        marginBottom: '2rem', // Reduced margin
         height: '80px',
         display: 'flex',
         justifyContent: 'center',
