@@ -2,8 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import PerspectiveBarrel from '../components/sections/PerspectiveBarrel';
-import ElementShowcase from '../components/sections/ElementShowcase';
+import BarrelNotes from '../components/sections/BarrelNotes';
+// import ElementShowcase from '../components/sections/ElementShowcase'; // Removed old import
+import DioGenioElements from '../components/sections/DioGenioElements'; // Added new import
 import NftGallery from '../components/sections/NftGallery';
+import PhilosophyGrid from '../components/sections/PhilosophyGrid'; // Added import
 import Manifesto from '../components/sections/Manifesto';
 
 export default function HomePage() {
@@ -33,9 +36,11 @@ export default function HomePage() {
           onClick: () => navigate('/gallery')
         }}
       />
-      <ElementShowcase />
+      <DioGenioElements /> {/* Replaced ElementShowcase */}
       <NftGallery />
+      <PhilosophyGrid /> {/* Added component */}
       <Manifesto />
+      <BarrelNotes />
     </Layout>
   );
 }

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { nftCollection } from '../../data/nftData';
 
 export default function NftGallery() {
-  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const touchStartX = useRef(null);
+  const cardsWrapperRef = useRef(null);
   const total = nftCollection.length;
 
   const navigate = (direction) => {
@@ -12,6 +14,45 @@ export default function NftGallery() {
       setCurrentIndex((prev) => (prev - 1 + total) % total);
     }
   };
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) {
+      return;
+    }
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const deltaX = touchEndX - touchStartX.current;
+    const swipeThreshold = 50; // Minimum distance for a swipe
+
+    if (deltaX > swipeThreshold) {
+      // Swipe Right
+      navigate('prev');
+    } else if (deltaX < -swipeThreshold) {
+      // Swipe Left
+      navigate('next');
+    }
+
+    touchStartX.current = null; // Reset touch start position
+  };
+
+  useEffect(() => {
+    const wrapper = cardsWrapperRef.current;
+    if (wrapper) {
+      wrapper.addEventListener('touchstart', handleTouchStart, { passive: true });
+      wrapper.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+
+    return () => {
+      if (wrapper) {
+        wrapper.removeEventListener('touchstart', handleTouchStart);
+        wrapper.removeEventListener('touchend', handleTouchEnd);
+      }
+    };
+  }, [navigate]); // Add navigate to dependency array
 
   return (
     <section className="py-24 relative bg-[var(--color-gallery)] overflow-hidden">
@@ -27,21 +68,25 @@ export default function NftGallery() {
         <div className="relative min-h-[600px] flex justify-center items-center">
           <div className="relative w-full max-w-2xl h-[550px] perspective-1000 mx-16">
             <div className="controls absolute top-1/2 left-0 right-0 -translate-y-1/2 z-50 flex justify-between pointer-events-none">
+              {/* Hide buttons on mobile (hidden), show on medium screens and up (md:block) */}
               <button 
                 onClick={() => navigate('prev')}
-                className="pointer-events-auto bg-white border-4 border-[var(--color-black-opacity-30)] px-6 py-4 cursor-pointer font-mono text-2xl transition-all hover:scale-110 rounded-lg hover:bg-[var(--color-accent-1)] hover:text-white shadow-lg md:-translate-x-40 -translate-x-16"
+                className="hidden md:block pointer-events-auto cursor-pointer font-serif text-4xl text-[var(--color-text-primary)] transition-all hover:scale-110 md:-translate-x-40 -translate-x-16"
               >
                 ←
               </button>
               <button 
                 onClick={() => navigate('next')}
-                className="pointer-events-auto bg-white border-4 border-[var(--color-black-opacity-30)] px-6 py-4 cursor-pointer font-mono text-2xl transition-all hover:scale-110 rounded-lg hover:bg-[var(--color-accent-1)] hover:text-white shadow-lg md:translate-x-40 translate-x-16"
+                className="hidden md:block pointer-events-auto cursor-pointer font-serif text-4xl text-[var(--color-text-primary)] transition-all hover:scale-110 md:translate-x-40 translate-x-16"
               >
                 →
               </button>
             </div>
             
-            <div className="cards-wrapper relative w-full h-full flex justify-center items-center">
+            <div 
+              ref={cardsWrapperRef} 
+              className="cards-wrapper relative w-full h-full flex justify-center items-center cursor-grab active:cursor-grabbing"
+            >
               {nftCollection.map((nft, index) => {
                 const position = 
                   index === currentIndex ? 'current' :
